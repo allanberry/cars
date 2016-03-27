@@ -1,9 +1,14 @@
 from flask import Flask
 from flask import render_template
+from flask.ext.pymongo import PyMongo
 
 app = Flask( __name__,
         static_folder="static",
     )
+
+mongo = PyMongo(app)
+
+
 
 @app.route("/")
 def home():
@@ -11,7 +16,10 @@ def home():
 
 @app.route("/cars")
 def show_cars():
-    return render_template('cars.html',)
+    context = {
+        'cars': mongo.db.cars,
+    }
+    return render_template('cars.html', context=context)
 
 @app.route("/cars/<marque>")
 def show_marque(marque):
