@@ -20,7 +20,6 @@ def home():
 def show_cars():
     return render_template('cars.html')
 
-
 @app.route("/cars.json")
 def show_cars_json():
     cars = mongo.db.cars.find()
