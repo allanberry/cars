@@ -1,25 +1,32 @@
-from flask import Flask
+import json
+from flask import Flask, Response
 from flask import render_template
+from bson.json_util import dumps
 from flask.ext.pymongo import PyMongo
 
 app = Flask( __name__,
         static_folder="static",
     )
 
+app.config['MONGO_DBNAME'] = 'cars_db'
 mongo = PyMongo(app)
-
-
 
 @app.route("/")
 def home():
     return render_template('index.html')
 
+
 @app.route("/cars")
 def show_cars():
-    context = {
-        'cars': mongo.db.cars,
-    }
-    return render_template('cars.html', context=context)
+    return render_template('cars.html')
+
+
+@app.route("/cars.json")
+def show_cars_json():
+    cars = mongo.db.cars.find()
+    json = dumps(cars, indent=2, sort_keys=True)
+    return Response(json, mimetype='application/json')
+
 
 @app.route("/cars/<marque>")
 def show_marque(marque):
@@ -28,6 +35,7 @@ def show_marque(marque):
     }
     return render_template('marque.html', context=context)
 
+
 @app.route("/cars/<marque>/<model>")
 def show_model(marque, model):
     context = {
@@ -35,6 +43,7 @@ def show_model(marque, model):
         'model': model,
     }
     return render_template('model.html', context=context)
+
 
 @app.route("/colophon")
 def colophon():
