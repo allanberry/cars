@@ -61,5 +61,5 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-# Node stuff
+# Node, NPM and related stuff
 node_modules/
