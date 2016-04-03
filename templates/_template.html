@@ -13,9 +13,7 @@
 </head>
 <body>
 
-{% include 'partials/header.html' %}
-
-<div id="example"></div>
+{# {% include 'partials/header.html' %} #}
 
 {% block body %}
 
@@ -23,6 +21,8 @@
     <p>This is the index.  This text should have been overridden in templates.</p>
 
 {% endblock %}
+
+<div id="react_mount_point"></div>
 
 <script src="/static/bundle.js"></script>
 
