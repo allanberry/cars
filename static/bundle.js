@@ -7,13 +7,22 @@ var mountNode = document.getElementById('react_mount_point');
 
 var CARS = [{ marque: 'Ford', model: 'Escape', year: 2016 }, { marque: 'Subaru', model: 'Crosstrek', year: 2016 }, { marque: 'Subaru', model: 'Impreza', year: 2016 }, { marque: 'Subaru', model: 'Forester', year: 2016 }, { marque: 'Buick', model: 'Encore', year: 2016 }, { marque: 'Toyota', model: 'Rav4', year: 2016 }, { marque: 'Mazda', model: 'CX5', year: 2016 }, { marque: 'Honda', model: 'CRV', year: 2016 }];
 
+function slugify(text) {
+  // hat tip https://gist.github.com/mathewbyrne/1280286
+  return text.toString().toLowerCase().trim().replace(/\s+/g, '-') // Replace spaces with -
+  .replace(/&/g, '-and-') // Replace & with 'and'
+  .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+  .replace(/\-\-+/g, '-') // Replace multiple - with single -
+  .replace(/^-+|-+$/g, ''); // remove leading, trailing -
+}
+
 var CarList = React.createClass({
   displayName: 'CarList',
 
   render: function () {
     var carTiles = [];
     this.props.cars.forEach(function (car) {
-      key = car.marque + "_" + car.model + "_" + car.year;
+      key = slugify(car.marque + "_" + car.model + "_" + car.year);
       carTiles.push(React.createElement(CarTile, { car: car, key: key }));
     });
     return React.createElement(

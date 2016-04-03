@@ -1,8 +1,8 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+var React = require('react')
+var ReactDOM = require('react-dom')
 var d3 = require('d3')
 
-var mountNode = document.getElementById('react_mount_point');
+var mountNode = document.getElementById('react_mount_point')
 
 var CARS = [
   {marque: 'Ford',      model: 'Escape',    year: 2016},
@@ -15,11 +15,21 @@ var CARS = [
   {marque: 'Honda',     model: 'CRV',       year: 2016}
 ]
 
+function slugify(text) {
+    // hat tip https://gist.github.com/mathewbyrne/1280286
+    return text.toString().toLowerCase().trim()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/&/g, '-and-')         // Replace & with 'and'
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+|-+$/g, '');       // remove leading, trailing -
+}
+
 var CarList = React.createClass({
   render: function() {
     var carTiles = []
     this.props.cars.forEach(function(car) {
-        key = car.marque + "_" + car.model + "_" + car.year
+        key = slugify(car.marque + "_" + car.model + "_" + car.year)
         carTiles.push(<CarTile car={car} key={key} />);
     })
     return (
