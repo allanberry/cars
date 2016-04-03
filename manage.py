@@ -32,21 +32,6 @@ def loaddata(fixture):
     collection.insert(fixture_data)
 
 
-# seed the db
-@cli.command()
-@click.argument('fixture', type=click.File('w'))
-def dumpdata(fixture):
-    """
-    Dump a full copy of the database in JSON format, to the specified file.
-    """
-    client = MongoClient('localhost', 27017)
-    cars = client['cars_db']['cars'].find()
-
-    for c in cars:
-        click.echo(c)
-
-
-
 # maybe someday migrate to setuptools; for the moment, I don't really care
 if __name__ == '__main__':
     cli()

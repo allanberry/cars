@@ -2,3 +2,22 @@ body {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+/*
+ * carTile
+ */
+
+.carTile .img_container {
+    width: 200px;
+    height: 150px;
+    border: 1px solid silver;
+}
+
+.carTile .img_container img {
+    /* sits within the boundaries of ".carTile .img_container" above */
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
