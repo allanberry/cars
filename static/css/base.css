@@ -7,10 +7,28 @@ body {
  * carTile
  */
 
-.carTile .img_container {
-    width: 200px;
-    height: 150px;
+.carTile {
     border: 1px solid silver;
+}
+
+.carTile input[type="checkbox"] {
+    position: absolute;
+    z-index: 1;
+
+    -webkit-appearance:none;
+    width:2.5rem;
+    height:2.5rem;
+    border-radius:.5rem;
+    border:1px solid silver;
+    outline: 0;
+}
+
+.carTile input[type='checkbox']:checked {
+    background: green;
+}
+
+.carTile .img_container {
+    height: 150px;
 }
 
 .carTile .img_container img {
@@ -21,3 +39,4 @@ body {
     top: 50%;
     transform: translateY(-50%);
 }
+
