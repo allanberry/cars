@@ -20,7 +20,21 @@ var CarList = React.createClass({
         return React.createElement(
             'div',
             { className: 'carList' },
+            React.createElement(CarFilters, null),
             carTiles
+        );
+    }
+});
+
+var CarFilters = React.createClass({
+    displayName: 'CarFilters',
+
+    render: function () {
+
+        return React.createElement(
+            'div',
+            { className: 'tile carFiltersTile' },
+            'Filters'
         );
     }
 });
@@ -32,7 +46,7 @@ var CarTile = React.createClass({
         var img_path = utils.slugify(this.props.car.marque + "_" + this.props.car.model + "_" + this.props.car.year);
         return React.createElement(
             'div',
-            { className: 'carTile' },
+            { className: 'tile carTile' },
             React.createElement('input', { id: 'toggle', type: 'checkbox' }),
             React.createElement(
                 'div',
