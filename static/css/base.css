@@ -1,7 +1,14 @@
 
-body {
-    padding-left: 1rem;
-    padding-right: 1rem;
+body {}
+
+/*
+ * carList
+ */
+
+.carList {
+    display: flex;
+    flex-flow: row wrap;
+    /* margin: -.25rem -.25rem auto -.25rem; */
 }
 
 /*
@@ -10,8 +17,10 @@ body {
 
 .carTile {
     border: 1px solid silver;
-    width: 12rem;
+    flex: 1 1 10rem;
     padding: .5rem;
+    margin: .25rem;
+    border-radius:.5rem;
     /* float: left; */
 }
 

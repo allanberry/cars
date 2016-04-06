@@ -23,7 +23,6 @@ var CarList = React.createClass({
         })
         return (
             <div className="carList">
-            This is a CarList
             {carTiles}
             </div>
         )
@@ -38,7 +37,7 @@ var CarTile = React.createClass({
             this.props.car.year
         )
         return (
-            <div className="carTile column">
+            <div className="carTile">
                 <input id="toggle" type="checkbox" />
 
                 <div className="img_container">

@@ -20,7 +20,6 @@ var CarList = React.createClass({
         return React.createElement(
             'div',
             { className: 'carList' },
-            'This is a CarList',
             carTiles
         );
     }
@@ -33,7 +32,7 @@ var CarTile = React.createClass({
         var img_path = utils.slugify(this.props.car.marque + "_" + this.props.car.model + "_" + this.props.car.year);
         return React.createElement(
             'div',
-            { className: 'carTile column' },
+            { className: 'carTile' },
             React.createElement('input', { id: 'toggle', type: 'checkbox' }),
             React.createElement(
                 'div',
