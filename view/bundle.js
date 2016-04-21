@@ -44,7 +44,16 @@ var CarList = React.createClass({
         return React.createElement(
             'div',
             { className: 'CarList' },
-            'Hello World!  I am a CarList.'
+            React.createElement(
+                CarTile,
+                { marque: 'Ford', model: 'Escape' },
+                'This is the first tile.'
+            ),
+            React.createElement(
+                CarTile,
+                { marque: 'Subaru', model: 'Outback' },
+                'This is another.'
+            )
         );
     }
 });
@@ -56,7 +65,12 @@ var CarTile = React.createClass({
         return React.createElement(
             'div',
             { className: 'CarTile' },
-            'Hello World!  I am a CarTile.'
+            React.createElement(
+                'h2',
+                { className: 'car_name' },
+                this.props.marque + ' ' + this.props.model
+            ),
+            this.props.children
         );
     }
 });

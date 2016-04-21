@@ -32,7 +32,8 @@ var CarList = React.createClass({
     render: function() {
         return (
             <div className="CarList">
-                Hello World!  I am a CarList.
+                <CarTile marque="Ford" model="Escape" >This is the first tile.</CarTile>
+                <CarTile marque="Subaru" model="Outback" >This is another.</CarTile>
             </div>
         )
     }
@@ -42,7 +43,10 @@ var CarTile = React.createClass({
     render: function() {
         return (
             <div className="CarTile">
-                Hello World!  I am a CarTile.
+                <h2 className="car_name">
+                    {this.props.marque + ' ' + this.props.model}
+                </h2>
+                {this.props.children}
             </div>
         )
     }
