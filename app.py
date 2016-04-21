@@ -5,7 +5,7 @@ from bson.json_util import dumps
 from flask.ext.pymongo import PyMongo
 
 app = Flask( __name__,
-        static_folder="static",
+        static_folder="view",
     )
 
 app.config['MONGO_DBNAME'] = 'cars_db'

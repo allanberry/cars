@@ -1,0 +1,235 @@
+[
+  {
+    "_id": {
+      "$oid": "1234"
+    },
+    "marque": "Ford",
+    "model": "Explorer",
+    "years": [
+      {
+        "colors": [
+          {
+            "hex": "#ffffff",
+            "name": "white"
+          },{
+            "hex": "#00ff00",
+            "name": "green"
+          },{
+            "hex": "#00ffff",
+            "name": "turquoise"
+          }
+        ],
+        "pictures": [
+          {
+            "caption": "primary view",
+            "name": "ford_escape_2016.jpg"
+          }
+        ],
+        "prices": [
+          {
+            "time": "2016-01-01 08:00:00",
+            "url": "http://www.consumerreports.org/",
+            "value": 20000
+          }
+        ],
+        "rating": {
+          "attractiveness": 5,
+          "interior": 4,
+          "reliability": 3
+        },
+        "series": 2013,
+        "specification": {
+          "length": 150,
+          "wheelbase": 100
+        },
+        "trim_lines": [
+          {
+            "cylinders": 4,
+            "displacement": 2.0,
+            "doors": 4,
+            "drivetrain": "AWD",
+            "hp": 150,
+            "mpg": 25,
+            "name": "Premium",
+            "transmission": "automatic"
+          }
+        ],
+        "year": 2016
+      }
+    ]
+  },{
+    "_id": {
+      "$oid": "2345"
+    },
+    "marque": "Subaru",
+    "model": "Crosstrek",
+    "years": [
+      {
+        "colors": [
+          {
+            "hex": "#ffffff",
+            "name": "white"
+          },{
+            "hex": "#ffff00",
+            "name": "orange"
+          },{
+            "hex": "#0000ff",
+            "name": "blue"
+          }
+        ],
+        "pictures": [
+          {
+            "caption": "primary view",
+            "name": "subaru_crosstrek_2016.jpg"
+          }
+        ],
+        "prices": [
+          {
+            "time": "2016-01-01 08:00:00",
+            "url": "http://www.consumerreports.org/",
+            "value": 25000
+          }
+        ],
+        "rating": {
+          "attractiveness": 5,
+          "interior": 5,
+          "reliability": 5
+        },
+        "series": 2013,
+        "specification": {
+          "length": 150,
+          "wheelbase": 100
+        },
+        "trim_lines": [
+          {
+            "cylinders": 4,
+            "displacement": 2.0,
+            "doors": 4,
+            "drivetrain": "AWD",
+            "hp": 150,
+            "mpg": 25,
+            "name": "Premium",
+            "transmission": "automatic"
+          }
+        ],
+        "year": 2016
+      }
+    ]
+  },{
+    "_id": {
+      "$oid": "2345"
+    },
+    "marque": "Buick",
+    "model": "Encore",
+    "years": [
+      {
+        "colors": [
+          {
+            "hex": "#ffffff",
+            "name": "white"
+          },{
+            "hex": "#00ff00",
+            "name": "green"
+          },{
+            "hex": "#0000ff",
+            "name": "blue"
+          }
+        ],
+        "pictures": [
+          {
+            "caption": "primary view",
+            "name": "buick_encore_2016.jpg"
+          }
+        ],
+        "prices": [
+          {
+            "time": "2016-01-01 08:00:00",
+            "url": "http://www.consumerreports.org/",
+            "value": 25000
+          }
+        ],
+        "rating": {
+          "attractiveness": 4,
+          "interior": 5,
+          "reliability": 3
+        },
+        "series": 2014,
+        "specification": {
+          "length": 150,
+          "wheelbase": 100
+        },
+        "trim_lines": [
+          {
+            "cylinders": 4,
+            "displacement": 2.0,
+            "doors": 4,
+            "drivetrain": "AWD",
+            "hp": 150,
+            "mpg": 25,
+            "name": "Premium",
+            "transmission": "automatic"
+          }
+        ],
+        "year": 2016
+      }
+    ]
+  },{
+    "_id": {
+      "$oid": "3456"
+    },
+    "marque": "Toyota",
+    "model": "Rav4",
+    "years": [
+      {
+        "colors": [
+          {
+            "hex": "#ffffff",
+            "name": "white"
+          },{
+            "hex": "#000000",
+            "name": "black"
+          },{
+            "hex": "#00ff99",
+            "name": "teal?"
+          }
+        ],
+        "pictures": [
+          {
+            "caption": "primary view",
+            "name": "toyota_rav4_2016.jpg"
+          }
+        ],
+        "prices": [
+          {
+            "time": "2016-01-01 08:00:00",
+            "url": "http://www.consumerreports.org/",
+            "value": 23000
+          }
+        ],
+        "rating": {
+          "attractiveness": 5,
+          "interior": 5,
+          "reliability": 5
+        },
+        "series": 2013,
+        "specification": {
+          "length": 150,
+          "wheelbase": 100
+        },
+        "trim_lines": [
+          {
+            "cylinders": 4,
+            "displacement": 2.0,
+            "doors": 4,
+            "drivetrain": "AWD",
+            "hp": 150,
+            "mpg": 25,
+            "name": "Premium",
+            "transmission": "automatic"
+          }
+        ],
+        "year": 2016
+      }
+    ]
+  }
+]

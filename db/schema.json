@@ -1,50 +1,55 @@
-{
-  "marque": "Default Marque",
-  "model": "Default Model",
-  "years": [
-    {
-      "year": 2016,
-      "series": 2013,
-      "trim_lines": [
-        {
-          "name": "Premium",
-          "transmission": "automatic",
-          "cylinders": 4,
-          "drivetrain": "AWD",
-          "doors": 4,
-          "displacement": 2.0,
-          "hp": 150,
-          "mpg": 25
-        }
-      ],
-      "colors": [
-        {
-          "name": "white",
-          "hex": "#ffffff"
-        }
-      ],
-      "prices": [
-        {
-          "url": "http://www.consumerreports.org/",
-          "time": "2016-01-01 08:00:00",
-          "value": 20000
-        }
-      ],
-      "pictures": [
-        {
-          "name": "default.jpg",
-          "caption": "exterior view"
-        }
-      ],
-      "rating": {
-        "reliability": 5,
-        "attractiveness": 5,
-        "interior": 5
-      },
-      "specification": {
-        "wheelbase": 100,
-        "length": 150
+[
+  {
+    "_id": {
+      "$oid": "56f72e43b6bc65e4fb6d3ac0"
+    },
+    "marque": "Default Marque",
+    "model": "Default Model",
+    "years": [
+      {
+        "colors": [
+          {
+            "hex": "#ffffff",
+            "name": "white"
+          }
+        ],
+        "pictures": [
+          {
+            "caption": "exterior view",
+            "name": "default.jpg"
+          }
+        ],
+        "prices": [
+          {
+            "time": "2016-01-01 08:00:00",
+            "url": "http://www.consumerreports.org/",
+            "value": 20000
+          }
+        ],
+        "rating": {
+          "attractiveness": 5,
+          "interior": 5,
+          "reliability": 5
+        },
+        "series": 2013,
+        "specification": {
+          "length": 150,
+          "wheelbase": 100
+        },
+        "trim_lines": [
+          {
+            "cylinders": 4,
+            "displacement": 2.0,
+            "doors": 4,
+            "drivetrain": "AWD",
+            "hp": 150,
+            "mpg": 25,
+            "name": "Premium",
+            "transmission": "automatic"
+          }
+        ],
+        "year": 2016
       }
-    }
-  ]
-}
+    ]
+  }
+]

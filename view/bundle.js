@@ -4,69 +4,21 @@ var ReactDOM = require('react-dom');
 var d3 = require('d3');
 var utils = require('./utilities');
 
-var mountNode = document.getElementById('react_mount_point');
+var mountPoint = document.getElementById('react_mount_point');
 
-var CARS = [{ marque: 'Ford', model: 'Escape', year: 2016 }, { marque: 'Subaru', model: 'Crosstrek', year: 2016 }, { marque: 'Buick', model: 'Encore', year: 2016 }, { marque: 'Toyota', model: 'Rav4', year: 2016 }, { marque: 'Mazda', model: 'CX5', year: 2016 }, { marque: 'Honda', model: 'CRV', year: 2016 }];
-
-var CarList = React.createClass({
-    displayName: 'CarList',
+var CarBox = React.createClass({
+    displayName: 'CarBox',
 
     render: function () {
-        var carTiles = [];
-        this.props.cars.forEach(function (car) {
-            key = utils.slugify(car.marque + "_" + car.model + "_" + car.year);
-            carTiles.push(React.createElement(CarTile, { car: car, key: key }));
-        });
         return React.createElement(
             'div',
-            { className: 'carList' },
-            React.createElement(CarFilters, null),
-            carTiles
+            { className: 'CarBox' },
+            'Hello World!  I\'m a CarBox.'
         );
     }
 });
 
-var CarFilters = React.createClass({
-    displayName: 'CarFilters',
-
-    render: function () {
-
-        return React.createElement(
-            'div',
-            { className: 'tile carFiltersTile' },
-            'Filters'
-        );
-    }
-});
-
-var CarTile = React.createClass({
-    displayName: 'CarTile',
-
-    render: function () {
-        var img_path = utils.slugify(this.props.car.marque + "_" + this.props.car.model + "_" + this.props.car.year);
-        return React.createElement(
-            'div',
-            { className: 'tile carTile' },
-            React.createElement('input', { id: 'toggle', type: 'checkbox' }),
-            React.createElement(
-                'div',
-                { className: 'img_container' },
-                React.createElement('img', { src: "/static/img/cars/1000/" + img_path + ".jpg" })
-            ),
-            React.createElement(
-                'p',
-                null,
-                this.props.car.year,
-                ' ',
-                this.props.car.marque,
-                ' ',
-                this.props.car.model
-            )
-        );
-    }
-});
-
-ReactDOM.render(React.createElement(CarList, { cars: CARS }), mountNode);
+ReactDOM.render(React.createElement(CarBox, null), mountPoint);
 
 },{"./utilities":160,"d3":2,"react":159,"react-dom":30}],2:[function(require,module,exports){
 !function() {
@@ -20509,6 +20461,10 @@ var ReactEmptyComponentInjection = {
   }
 };
 
+function registerNullComponentID() {
+  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+}
+
 var ReactEmptyComponent = function (instantiate) {
   this._currentElement = null;
   this._rootNodeID = null;
@@ -20517,7 +20473,7 @@ var ReactEmptyComponent = function (instantiate) {
 assign(ReactEmptyComponent.prototype, {
   construct: function (element) {},
   mountComponent: function (rootID, transaction, context) {
-    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
     this._rootNodeID = rootID;
     return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
   },
@@ -24823,7 +24779,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '0.14.7';
+module.exports = '0.14.8';
 },{}],115:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.

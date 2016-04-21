@@ -8,6 +8,7 @@ body {}
 .carList {
     display: flex;
     flex-flow: row wrap;
+    padding: .25rem;
 }
 
 /*

@@ -5,20 +5,26 @@ var utils = require('./utilities')
 
 var mountNode = document.getElementById('react_mount_point')
 
-var CARS = [
-    {marque: 'Ford',      model: 'Escape',    year: 2016},
-    {marque: 'Subaru',    model: 'Crosstrek', year: 2016},
-    {marque: 'Buick',     model: 'Encore',    year: 2016},
-    {marque: 'Toyota',    model: 'Rav4',      year: 2016},
-    {marque: 'Mazda',     model: 'CX5',       year: 2016},
-    {marque: 'Honda',     model: 'CRV',       year: 2016}
-]
+
 
 var CarList = React.createClass({
+    getInitialState: function() {
+        return { cars: '' }
+    },
+
+    componentDidMount: function() {
+        this.serverRequest = d3.json('/cars.json')
+    },
+
+    componentWillUnmount: function() {
+        this.serverRequest.abort()
+    },
+
     render: function() {
+
         var carTiles = []
         this.props.cars.forEach(function(car) {
-            key = utils.slugify(car.marque + "_" + car.model + "_" + car.year)
+            key = utils.slugify(car.marque + "_" + car.model)
             carTiles.push(<CarTile car={car} key={key} />);
         })
         return (
@@ -41,26 +47,26 @@ var CarFilters = React.createClass({
 
 var CarTile = React.createClass({
     render: function() {
-        var img_path = utils.slugify(
-            this.props.car.marque + "_" +
-            this.props.car.model + "_" + 
-            this.props.car.year
-        )
+        var image_name = this.props.car['years'][0]['pictures'][0]['name']
         return (
             <div className="tile carTile">
                 <input id="toggle" type="checkbox" />
 
                 <div className="img_container">
                     {/* img_container is for constraining the icon, below */}
-                    <img src={"/static/img/cars/1000/"+img_path+".jpg"}></img>
+                    <img src={"/view/img/cars/1000/" + image_name}></img>
                 </div>
-                <p>{this.props.car.year} {this.props.car.marque} {this.props.car.model}</p>
+                <p>{this.props.car.marque} {this.props.car.model}</p>
             </div>
             )
         }
     }
 )
 
+var CARS = "/cars.json"
+
+
 ReactDOM.render(
-    <CarList cars={CARS} />, mountNode
+    <CarList />, mountNode
 )
+
