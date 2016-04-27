@@ -5,13 +5,18 @@ var utils = require('./utilities')
 
 var mountPoint = document.getElementById('react_mount_point')
 
+var data = [
+    {id: 1, marque: "Ford", model: "Escape", summary: "A fine car."},
+    {id: 2, marque: "Subaru", model: "Outback", summary: "A good car."}
+]
+
 var CarBox = React.createClass({
     render: function() {
         return (
             <div className="CarBox">
                 <h1>Cars</h1>
                 <CarFilter />
-                <CarList />
+                <CarList data={this.props.data} />
                 <CarForm />
             </div>
         )
@@ -30,10 +35,16 @@ var CarFilter = React.createClass({
 
 var CarList = React.createClass({
     render: function() {
+        var carNodes = this.props.data.map(function(car) {
+            return (
+                <CarTile marque={car.marque} model={car.model} key={car.id}>
+                    {car.summary}
+                </CarTile>
+            )
+        })
         return (
             <div className="CarList">
-                <CarTile marque="Ford" model="Escape" >This is the first tile.</CarTile>
-                <CarTile marque="Subaru" model="Outback" >This is another.</CarTile>
+                {carNodes}
             </div>
         )
     }
@@ -64,5 +75,5 @@ var CarForm = React.createClass({
 
 
 ReactDOM.render(
-    <CarBox />, mountPoint
+    <CarBox data={data}/>, mountPoint
 )
