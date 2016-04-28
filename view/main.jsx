@@ -5,19 +5,27 @@ var utils = require('./utilities')
 
 var mountPoint = document.getElementById('react_mount_point')
 
-var data = [
-    {id: 1, marque: "Ford", model: "Escape", summary: "A fine car."},
-    {id: 2, marque: "Subaru", model: "Outback", summary: "A good car."}
-]
-
 var CarBox = React.createClass({
+    getInitialState: function() {
+        return {data: [
+            // {id: 1, marque: "Ford", model: "Escape", summary: "A fine car."},
+            // {id: 2, marque: "Subaru", model: "Outback", summary: "A good car."}
+        ]}
+    },
+    componentDidMount: function() {
+        d3.json(this.props.data_url, function(error, json) {
+            if (error) return console.warn(error);
+            this.setState({data: json})
+        }.bind(this))
+    },
     render: function() {
         return (
             <div className="CarBox">
                 <h1>Cars</h1>
                 <CarFilter />
-                <CarList data={this.props.data} />
+                <CarList data={this.state.data} />
                 <CarForm />
+                {this.props.url}
             </div>
         )
     }
@@ -37,7 +45,7 @@ var CarList = React.createClass({
     render: function() {
         var carNodes = this.props.data.map(function(car) {
             return (
-                <CarTile marque={car.marque} model={car.model} key={car.id}>
+                <CarTile marque={car.marque} model={car.model} key={car._id["$oid"]}>
                     {car.summary}
                 </CarTile>
             )
@@ -75,5 +83,5 @@ var CarForm = React.createClass({
 
 
 ReactDOM.render(
-    <CarBox data={data}/>, mountPoint
+    <CarBox data_url="/cars.json" />, mountPoint
 )

@@ -6,11 +6,21 @@ var utils = require('./utilities');
 
 var mountPoint = document.getElementById('react_mount_point');
 
-var data = [{ id: 1, marque: "Ford", model: "Escape", summary: "A fine car." }, { id: 2, marque: "Subaru", model: "Outback", summary: "A good car." }];
-
 var CarBox = React.createClass({
     displayName: 'CarBox',
 
+    getInitialState: function () {
+        return { data: [
+                // {id: 1, marque: "Ford", model: "Escape", summary: "A fine car."},
+                // {id: 2, marque: "Subaru", model: "Outback", summary: "A good car."}
+            ] };
+    },
+    componentDidMount: function () {
+        d3.json(this.props.data_url, function (error, json) {
+            if (error) return console.warn(error);
+            this.setState({ data: json });
+        }.bind(this));
+    },
     render: function () {
         return React.createElement(
             'div',
@@ -21,8 +31,9 @@ var CarBox = React.createClass({
                 'Cars'
             ),
             React.createElement(CarFilter, null),
-            React.createElement(CarList, { data: this.props.data }),
-            React.createElement(CarForm, null)
+            React.createElement(CarList, { data: this.state.data }),
+            React.createElement(CarForm, null),
+            this.props.url
         );
     }
 });
@@ -46,7 +57,7 @@ var CarList = React.createClass({
         var carNodes = this.props.data.map(function (car) {
             return React.createElement(
                 CarTile,
-                { marque: car.marque, model: car.model, key: car.id },
+                { marque: car.marque, model: car.model, key: car._id["$oid"] },
                 car.summary
             );
         });
@@ -87,7 +98,7 @@ var CarForm = React.createClass({
     }
 });
 
-ReactDOM.render(React.createElement(CarBox, { data: data }), mountPoint);
+ReactDOM.render(React.createElement(CarBox, { data_url: '/cars.json' }), mountPoint);
 
 },{"./utilities":160,"d3":2,"react":159,"react-dom":30}],2:[function(require,module,exports){
 !function() {
