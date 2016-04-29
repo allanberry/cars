@@ -11,3 +11,9 @@ Thanks for visiting.
 1. In `cars`: `mongod`, to start the database
 1. In  `cars/view`: `watchify -t [ babelify --presets [ react ] ] main.js -o bundle.js` to continuously update `bundle.js` with jsx code in `main.js` 
 2. 1. In `cars/adminMongo`: `npm start` (optional: for starting AdminMongo, a DB browser)
+
+## To reset database to initial data
+
+With `mongodb` running, and in root folder of project:
+
+* `db/reset_db.sh`

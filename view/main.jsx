@@ -6,17 +6,19 @@ var utils = require('./utilities')
 var mountPoint = document.getElementById('react_mount_point')
 
 var CarBox = React.createClass({
+    
     getInitialState: function() {
-        return {data: [
-            // {id: 1, marque: "Ford", model: "Escape", summary: "A fine car."},
-            // {id: 2, marque: "Subaru", model: "Outback", summary: "A good car."}
-        ]}
+        return {data: []}
     },
-    componentDidMount: function() {
+    loadCarsFromServer: function() {
         d3.json(this.props.data_url, function(error, json) {
             if (error) return console.warn(error);
             this.setState({data: json})
         }.bind(this))
+    },
+    componentDidMount: function() {
+        this.loadCarsFromServer();
+        // setInterval(this.loadCarsFromServer, this.props.pollInterval);
     },
     render: function() {
         return (
@@ -81,7 +83,6 @@ var CarForm = React.createClass({
     }
 })
 
-
 ReactDOM.render(
-    <CarBox data_url="/cars.json" />, mountPoint
+    <CarBox data_url="/cars.json" pollInterval={2000} />, mountPoint
 )
