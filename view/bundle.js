@@ -9,9 +9,14 @@ var mountPoint = document.getElementById('react_mount_point');
 var CarBox = React.createClass({
     displayName: 'CarBox',
 
-
     getInitialState: function () {
         return { data: [] };
+    },
+    handleCarSubmit: function (car) {
+        d3.xhr(this.props.data_url).header("Content-Type", "application/json").post(JSON.stringify(car), function (error, responseData) {
+            if (error) return console.warn(error);
+            // console.log(responseData.response)
+        });
     },
     loadCarsFromServer: function () {
         d3.json(this.props.data_url, function (error, json) {
@@ -21,7 +26,7 @@ var CarBox = React.createClass({
     },
     componentDidMount: function () {
         this.loadCarsFromServer();
-        // setInterval(this.loadCarsFromServer, this.props.pollInterval);
+        setInterval(this.loadCarsFromServer, this.props.pollInterval);
     },
     render: function () {
         return React.createElement(
@@ -34,7 +39,7 @@ var CarBox = React.createClass({
             ),
             React.createElement(CarFilter, null),
             React.createElement(CarList, { data: this.state.data }),
-            React.createElement(CarForm, null),
+            React.createElement(CarForm, { onCarSubmit: this.handleCarSubmit }),
             this.props.url
         );
     }
@@ -91,11 +96,42 @@ var CarTile = React.createClass({
 var CarForm = React.createClass({
     displayName: 'CarForm',
 
+    getInitialState: function () {
+        return { marque: '', model: '' };
+    },
+    handleMarqueChange: function (e) {
+        this.setState({ marque: e.target.value });
+    },
+    handleModelChange: function (e) {
+        this.setState({ model: e.target.value });
+    },
+    handleSubmit: function (e) {
+        e.preventDefault();
+        var marque = this.state.marque.trim();
+        var model = this.state.model.trim();
+        if (!marque || !model) {
+            return;
+        }
+        this.props.onCarSubmit({ marque: marque, model: model });
+        this.setState({ marque: '', model: '' });
+    },
     render: function () {
         return React.createElement(
-            'div',
-            { className: 'CarForm' },
-            'Hello World!  I am a CarForm.'
+            'form',
+            { className: 'carForm', onSubmit: this.handleSubmit },
+            React.createElement('input', {
+                type: 'text',
+                placeholder: 'Marque',
+                value: this.state.marque,
+                onChange: this.handleMarqueChange
+            }),
+            React.createElement('input', {
+                type: 'text',
+                placeholder: 'Model',
+                value: this.state.model,
+                onChange: this.handleModelChange
+            }),
+            React.createElement('input', { type: 'submit', value: 'Post' })
         );
     }
 });

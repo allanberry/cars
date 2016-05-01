@@ -1,6 +1,6 @@
 import json
 from flask import Flask, Response
-from flask import render_template
+from flask import render_template, request
 from bson.json_util import dumps
 from flask.ext.pymongo import PyMongo
 
@@ -20,11 +20,19 @@ def home():
 def show_cars():
     return render_template('cars.html')
 
-@app.route("/cars.json")
-def show_cars_json():
-    cars = mongo.db.cars.find()
-    json = dumps(cars, indent=2, sort_keys=True)
-    return Response(json, mimetype='application/json')
+@app.route("/cars.json", methods=['GET', 'POST'])
+def cars_json():
+    if request.method == 'GET':
+        cars = mongo.db.cars.find()
+        json_response = dumps(cars, indent=2, sort_keys=True)
+        return Response(json_response, mimetype='application/json')
+    if request.method == 'POST':
+        new_car = request.get_json()
+        mongo.db.cars.insert_one({
+            'marque': new_car['marque'],
+            'model': new_car['model'],
+        })
+        return ('Success', 201)
 
 
 @app.route("/cars/<marque>")

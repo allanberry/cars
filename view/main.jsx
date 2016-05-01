@@ -6,9 +6,19 @@ var utils = require('./utilities')
 var mountPoint = document.getElementById('react_mount_point')
 
 var CarBox = React.createClass({
-    
     getInitialState: function() {
         return {data: []}
+    },
+    handleCarSubmit: function(car) {
+        d3.xhr(this.props.data_url)
+            .header("Content-Type", "application/json")
+            .post(
+                JSON.stringify(car),
+                function(error, responseData){
+                    if (error) return console.warn(error)
+                    // console.log(responseData.response)
+                }
+            )
     },
     loadCarsFromServer: function() {
         d3.json(this.props.data_url, function(error, json) {
@@ -18,7 +28,7 @@ var CarBox = React.createClass({
     },
     componentDidMount: function() {
         this.loadCarsFromServer();
-        // setInterval(this.loadCarsFromServer, this.props.pollInterval);
+        setInterval(this.loadCarsFromServer, this.props.pollInterval);
     },
     render: function() {
         return (
@@ -26,7 +36,7 @@ var CarBox = React.createClass({
                 <h1>Cars</h1>
                 <CarFilter />
                 <CarList data={this.state.data} />
-                <CarForm />
+                <CarForm onCarSubmit={this.handleCarSubmit}/>
                 {this.props.url}
             </div>
         )
@@ -74,11 +84,42 @@ var CarTile = React.createClass({
 })
 
 var CarForm = React.createClass({
+    getInitialState: function() {
+        return {marque: '', model: ''}
+    },
+    handleMarqueChange: function(e) {
+        this.setState({marque: e.target.value})
+    },
+    handleModelChange: function(e) {
+        this.setState({model: e.target.value})
+    },
+    handleSubmit: function(e) {
+        e.preventDefault()
+        var marque = this.state.marque.trim()
+        var model = this.state.model.trim()
+        if (!marque || !model) {
+            return
+        }
+        this.props.onCarSubmit({marque: marque, model: model})
+        this.setState({marque: '', model: ''})
+    },
     render: function() {
         return (
-            <div className="CarForm">
-                Hello World!  I am a CarForm.
-            </div>
+            <form className="carForm" onSubmit={this.handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Marque"
+                    value={this.state.marque}
+                    onChange={this.handleMarqueChange}
+                />
+                <input
+                    type="text"
+                    placeholder="Model"
+                    value={this.state.model}
+                    onChange={this.handleModelChange}
+                />
+                <input type="submit" value="Post" />
+            </form>
         )
     }
 })
