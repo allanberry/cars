@@ -20,6 +20,9 @@ var CarBox = React.createClass({
                 }
             )
     },
+    // hendleCarDelete: function(car) {
+    //     console.log('deleted')
+    // },
     loadCarsFromServer: function() {
         d3.json(this.props.data_url, function(error, json) {
             if (error) return console.warn(error);
@@ -71,11 +74,20 @@ var CarList = React.createClass({
 })
 
 var CarTile = React.createClass({
+    deleteCar: function(car) {
+        console.log(car)
+    },
     render: function() {
+        var car = {marque: this.props.marque, model: this.props.model}
         return (
             <div className="CarTile">
                 <h2 className="car_name">
-                    {this.props.marque + ' ' + this.props.model}
+                    {car.marque + ' ' + car.model}
+                    <button
+                        type="button"
+                        name="deleteCar"
+                        onClick={this.deleteCar.bind(this, car)}
+                    >x</button>
                 </h2>
                 {this.props.children}
             </div>
