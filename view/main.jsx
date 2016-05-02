@@ -20,6 +20,9 @@ var CarBox = React.createClass({
                 }
             )
     },
+    handleCarDelete: function(car) {
+        console.log('deleted the car: '+ car.marque + ' ' + car.model )
+    },
     loadCarsFromServer: function() {
         d3.json(this.props.data_url, function(error, json) {
             if (error) return console.warn(error);
@@ -35,7 +38,7 @@ var CarBox = React.createClass({
             <div className="CarBox">
                 <h1>Cars</h1>
                 <CarFilter />
-                <CarList data={this.state.data}/>
+                <CarList data={this.state.data} onCarDelete={this.handleCarDelete}/>
                 <CarForm onCarSubmit={this.handleCarSubmit}/>
                 {this.props.url}
             </div>
@@ -56,13 +59,10 @@ var CarFilter = React.createClass({
 var CarList = React.createClass({
     render: function() {
         var carNodes = this.props.data.map(function(car) {
-            function deleteCar(car) {
-                console.log('deleted the car: '+ car.marque + ' ' + car.model )
-            }
             return (
-                <CarTile car={car} key={car._id["$oid"]} deleteCar={deleteCar}/>
+                <CarTile car={car} key={car._id["$oid"]} onCarDelete={this.props.onCarDelete}/>
             )
-        })
+        }.bind(this))
         return (
             <div className="CarList">
                 {carNodes}
@@ -72,8 +72,8 @@ var CarList = React.createClass({
 })
 
 var CarTile = React.createClass({
-    deleteCar: function() {
-        this.props.deleteCar(this.props.car)
+    onCarDelete: function() {
+        this.props.onCarDelete(this.props.car)
     },
     render: function() {
         return (
@@ -83,7 +83,7 @@ var CarTile = React.createClass({
                     <button
                         type="button"
                         name="deleteCar"
-                        onClick={this.deleteCar}
+                        onClick={this.onCarDelete}
                     >x</button>
                 </h2>
             </div>

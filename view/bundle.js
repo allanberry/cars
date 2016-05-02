@@ -18,6 +18,9 @@ var CarBox = React.createClass({
             // console.log(responseData.response)
         });
     },
+    handleCarDelete: function (car) {
+        console.log('deleted the car: ' + car.marque + ' ' + car.model);
+    },
     loadCarsFromServer: function () {
         d3.json(this.props.data_url, function (error, json) {
             if (error) return console.warn(error);
@@ -38,7 +41,7 @@ var CarBox = React.createClass({
                 'Cars'
             ),
             React.createElement(CarFilter, null),
-            React.createElement(CarList, { data: this.state.data }),
+            React.createElement(CarList, { data: this.state.data, onCarDelete: this.handleCarDelete }),
             React.createElement(CarForm, { onCarSubmit: this.handleCarSubmit }),
             this.props.url
         );
@@ -62,11 +65,8 @@ var CarList = React.createClass({
 
     render: function () {
         var carNodes = this.props.data.map(function (car) {
-            function deleteCar(car) {
-                console.log('deleted the car: ' + car.marque + ' ' + car.model);
-            }
-            return React.createElement(CarTile, { car: car, key: car._id["$oid"], deleteCar: deleteCar });
-        });
+            return React.createElement(CarTile, { car: car, key: car._id["$oid"], onCarDelete: this.props.onCarDelete });
+        }.bind(this));
         return React.createElement(
             'div',
             { className: 'CarList' },
@@ -78,8 +78,8 @@ var CarList = React.createClass({
 var CarTile = React.createClass({
     displayName: 'CarTile',
 
-    deleteCar: function () {
-        this.props.deleteCar(this.props.car);
+    onCarDelete: function () {
+        this.props.onCarDelete(this.props.car);
     },
     render: function () {
         return React.createElement(
@@ -94,7 +94,7 @@ var CarTile = React.createClass({
                     {
                         type: 'button',
                         name: 'deleteCar',
-                        onClick: this.deleteCar
+                        onClick: this.onCarDelete
                     },
                     'x'
                 )
