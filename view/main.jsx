@@ -20,9 +20,6 @@ var CarBox = React.createClass({
                 }
             )
     },
-    // hendleCarDelete: function(car) {
-    //     console.log('deleted')
-    // },
     loadCarsFromServer: function() {
         d3.json(this.props.data_url, function(error, json) {
             if (error) return console.warn(error);
@@ -38,7 +35,7 @@ var CarBox = React.createClass({
             <div className="CarBox">
                 <h1>Cars</h1>
                 <CarFilter />
-                <CarList data={this.state.data} />
+                <CarList data={this.state.data}/>
                 <CarForm onCarSubmit={this.handleCarSubmit}/>
                 {this.props.url}
             </div>
@@ -60,7 +57,7 @@ var CarList = React.createClass({
     render: function() {
         var carNodes = this.props.data.map(function(car) {
             return (
-                <CarTile marque={car.marque} model={car.model} key={car._id["$oid"]}>
+                <CarTile car={car} key={car._id["$oid"]}>
                     {car.summary}
                 </CarTile>
             )
@@ -74,19 +71,18 @@ var CarList = React.createClass({
 })
 
 var CarTile = React.createClass({
-    deleteCar: function(car) {
-        console.log(car)
+    handleCarDelete: function(e) {
+        console.log(this.props.car)
     },
     render: function() {
-        var car = {marque: this.props.marque, model: this.props.model}
         return (
             <div className="CarTile">
                 <h2 className="car_name">
-                    {car.marque + ' ' + car.model}
+                    {this.props.car['marque'] + ' ' + this.props.car['model']}
                     <button
                         type="button"
                         name="deleteCar"
-                        onClick={this.deleteCar.bind(this, car)}
+                        onClick={this.handleCarDelete}
                     >x</button>
                 </h2>
                 {this.props.children}

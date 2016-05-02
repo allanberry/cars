@@ -18,9 +18,6 @@ var CarBox = React.createClass({
             // console.log(responseData.response)
         });
     },
-    // hendleCarDelete: function(car) {
-    //     console.log('deleted')
-    // },
     loadCarsFromServer: function () {
         d3.json(this.props.data_url, function (error, json) {
             if (error) return console.warn(error);
@@ -67,7 +64,7 @@ var CarList = React.createClass({
         var carNodes = this.props.data.map(function (car) {
             return React.createElement(
                 CarTile,
-                { marque: car.marque, model: car.model, key: car._id["$oid"] },
+                { car: car, key: car._id["$oid"] },
                 car.summary
             );
         });
@@ -82,24 +79,23 @@ var CarList = React.createClass({
 var CarTile = React.createClass({
     displayName: 'CarTile',
 
-    deleteCar: function (car) {
-        console.log(car);
+    handleCarDelete: function (e) {
+        console.log(this.props.car);
     },
     render: function () {
-        var car = { marque: this.props.marque, model: this.props.model };
         return React.createElement(
             'div',
             { className: 'CarTile' },
             React.createElement(
                 'h2',
                 { className: 'car_name' },
-                car.marque + ' ' + car.model,
+                this.props.car['marque'] + ' ' + this.props.car['model'],
                 React.createElement(
                     'button',
                     {
                         type: 'button',
                         name: 'deleteCar',
-                        onClick: this.deleteCar.bind(this, car)
+                        onClick: this.handleCarDelete
                     },
                     'x'
                 )
