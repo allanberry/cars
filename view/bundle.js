@@ -62,8 +62,8 @@ var CarList = React.createClass({
 
     render: function () {
         var carNodes = this.props.data.map(function (car) {
-            function deleteCar() {
-                console.log('deleted the car');
+            function deleteCar(car) {
+                console.log('deleted the car: ' + car.marque + ' ' + car.model);
             }
             return React.createElement(CarTile, { car: car, key: car._id["$oid"], deleteCar: deleteCar });
         });
@@ -78,8 +78,8 @@ var CarList = React.createClass({
 var CarTile = React.createClass({
     displayName: 'CarTile',
 
-    deleteCar: function (e) {
-        this.props.deleteCar();
+    deleteCar: function () {
+        this.props.deleteCar(this.props.car);
     },
     render: function () {
         return React.createElement(
