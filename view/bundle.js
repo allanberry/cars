@@ -62,11 +62,10 @@ var CarList = React.createClass({
 
     render: function () {
         var carNodes = this.props.data.map(function (car) {
-            return React.createElement(
-                CarTile,
-                { car: car, key: car._id["$oid"] },
-                car.summary
-            );
+            function deleteCar() {
+                console.log('deleted the car');
+            }
+            return React.createElement(CarTile, { car: car, key: car._id["$oid"], deleteCar: deleteCar });
         });
         return React.createElement(
             'div',
@@ -79,8 +78,8 @@ var CarList = React.createClass({
 var CarTile = React.createClass({
     displayName: 'CarTile',
 
-    handleCarDelete: function (e) {
-        console.log(this.props.car);
+    deleteCar: function (e) {
+        this.props.deleteCar();
     },
     render: function () {
         return React.createElement(
@@ -95,12 +94,11 @@ var CarTile = React.createClass({
                     {
                         type: 'button',
                         name: 'deleteCar',
-                        onClick: this.handleCarDelete
+                        onClick: this.deleteCar
                     },
                     'x'
                 )
-            ),
-            this.props.children
+            )
         );
     }
 });

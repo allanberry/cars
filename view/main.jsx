@@ -56,10 +56,11 @@ var CarFilter = React.createClass({
 var CarList = React.createClass({
     render: function() {
         var carNodes = this.props.data.map(function(car) {
+            function deleteCar() {
+                console.log('deleted the car')
+            }
             return (
-                <CarTile car={car} key={car._id["$oid"]}>
-                    {car.summary}
-                </CarTile>
+                <CarTile car={car} key={car._id["$oid"]} deleteCar={deleteCar}/>
             )
         })
         return (
@@ -71,8 +72,8 @@ var CarList = React.createClass({
 })
 
 var CarTile = React.createClass({
-    handleCarDelete: function(e) {
-        console.log(this.props.car)
+    deleteCar: function(e) {
+        this.props.deleteCar()
     },
     render: function() {
         return (
@@ -82,10 +83,9 @@ var CarTile = React.createClass({
                     <button
                         type="button"
                         name="deleteCar"
-                        onClick={this.handleCarDelete}
+                        onClick={this.deleteCar}
                     >x</button>
                 </h2>
-                {this.props.children}
             </div>
         )
     }
