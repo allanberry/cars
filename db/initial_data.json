@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "marque": "Ford",
     "model": "Escape",
     "years": [
@@ -54,7 +53,6 @@
     ]
   },
   {
-    "id": 2,
     "marque": "Subaru",
     "model": "Forester",
     "years": [
@@ -108,7 +106,6 @@
     ]
   },
   {
-    "id": 3,
     "marque": "Mazda",
     "model": "CX-5",
     "years": [

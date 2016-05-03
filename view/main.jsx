@@ -89,15 +89,18 @@ var CarTile = React.createClass({
     },
     render: function() {
         return (
-            <div className="CarTile">
-                <h4 className="car_name">
+            <div className="tile CarTile">
+                <input
+                    className="select widget"
+                    type="checkbox" />
+                <button
+                    className="widget delete"
+                    type="button"
+                    name="deleteCar"
+                    onClick={this.onCarDelete}>x</button>
+                <p className="car_name">
                     {this.props.car['marque'] + ' ' + this.props.car['model']}
-                    <button
-                        type="button"
-                        name="deleteCar"
-                        onClick={this.onCarDelete}
-                    >x</button>
-                </h4>
+                </p>
             </div>
         )
     }

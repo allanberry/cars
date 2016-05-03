@@ -37,16 +37,16 @@ def show_marque(marque):
 
 @app.route("/cars/<marque>/<model>", methods=['GET', 'POST', 'DELETE'])
 def model(marque, model):
-    context = {
+    car = {
         'marque': marque,
         'model': model,
     }
     if request.method == 'GET':
-        return render_template('model.html', context=context)
+        return render_template('model.html', context=car)
     if request.method == 'DELETE':
         mongo.db.cars.remove({
-            'marque': context['marque'],
-            'model': context['model']}, 1)
+            'marque': car['marque'],
+            'model': car['model']}, 1)
         return ('Success', 205)
     if request.method == 'POST':
         new_car = request.get_json()

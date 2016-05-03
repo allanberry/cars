@@ -94,20 +94,23 @@ var CarTile = React.createClass({
     render: function () {
         return React.createElement(
             'div',
-            { className: 'CarTile' },
+            { className: 'tile CarTile' },
+            React.createElement('input', {
+                className: 'select widget',
+                type: 'checkbox' }),
             React.createElement(
-                'h4',
+                'button',
+                {
+                    className: 'widget delete',
+                    type: 'button',
+                    name: 'deleteCar',
+                    onClick: this.onCarDelete },
+                'x'
+            ),
+            React.createElement(
+                'p',
                 { className: 'car_name' },
-                this.props.car['marque'] + ' ' + this.props.car['model'],
-                React.createElement(
-                    'button',
-                    {
-                        type: 'button',
-                        name: 'deleteCar',
-                        onClick: this.onCarDelete
-                    },
-                    'x'
-                )
+                this.props.car['marque'] + ' ' + this.props.car['model']
             )
         );
     }
