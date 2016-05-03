@@ -19,7 +19,12 @@ var CarBox = React.createClass({
         });
     },
     handleCarDelete: function (car) {
-        console.log('deleted the car: ' + car.marque + ' ' + car.model);
+        d3.xhr('/cars/' + car.marque + '/' + car.model).on("error", function (error) {
+            console.log('failed to delete the car: ' + car.marque + ' ' + car.model);
+        }).on("load", function (xhr) {
+            this.loadCarsFromServer();
+            console.log('deleted the car: ' + car.marque + ' ' + car.model);
+        }.bind(this)).send('DELETE');
     },
     loadCarsFromServer: function () {
         d3.json(this.props.data_url, function (error, json) {

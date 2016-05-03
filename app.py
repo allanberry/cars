@@ -43,13 +43,19 @@ def show_marque(marque):
     return render_template('marque.html', context=context)
 
 
-@app.route("/cars/<marque>/<model>")
-def show_model(marque, model):
+@app.route("/cars/<marque>/<model>", methods=['GET', 'DELETE'])
+def model(marque, model):
     context = {
         'marque': marque,
         'model': model,
     }
-    return render_template('model.html', context=context)
+    if request.method == 'GET':
+        return render_template('model.html', context=context)
+    if request.method == 'DELETE':
+        mongo.db.cars.remove({
+            'marque': context['marque'],
+            'model': context['model']}, 1)
+        return ('Success', 205)
 
 
 @app.route("/colophon")
