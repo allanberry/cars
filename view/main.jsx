@@ -9,19 +9,23 @@ var CarBox = React.createClass({
     getInitialState: function() {
         return {data: []}
     },
+    carURL: function(car) {
+        return '/cars/' + car.marque + '/' + car.model
+    },
     handleCarSubmit: function(car) {
-        d3.xhr(this.props.data_url)
+        d3.xhr(this.carURL(car))
             .header("Content-Type", "application/json")
-            .post(
-                JSON.stringify(car),
-                function(error, responseData){
-                    if (error) return console.warn(error)
-                    // console.log(responseData.response)
-                }
-            )
+            .on("error", function(error) {
+                console.log('failed to create the car: ' + car.marque + ' ' + car.model )
+            })
+            .on("load", function(xhr) {
+                this.loadCarsFromServer()
+                console.log('created the car: ' + car.marque + ' ' + car.model )
+            }.bind(this))
+            .send('POST', JSON.stringify(car))
     },
     handleCarDelete: function(car) {
-        d3.xhr('/cars/' + car.marque + '/' + car.model)
+        d3.xhr(this.carURL(car))
             .on("error", function(error) {
                 console.log('failed to delete the car: ' + car.marque + ' ' + car.model )
             })
@@ -86,14 +90,14 @@ var CarTile = React.createClass({
     render: function() {
         return (
             <div className="CarTile">
-                <h2 className="car_name">
+                <h4 className="car_name">
                     {this.props.car['marque'] + ' ' + this.props.car['model']}
                     <button
                         type="button"
                         name="deleteCar"
                         onClick={this.onCarDelete}
                     >x</button>
-                </h2>
+                </h4>
             </div>
         )
     }

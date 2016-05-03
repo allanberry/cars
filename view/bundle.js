@@ -12,14 +12,19 @@ var CarBox = React.createClass({
     getInitialState: function () {
         return { data: [] };
     },
+    carURL: function (car) {
+        return '/cars/' + car.marque + '/' + car.model;
+    },
     handleCarSubmit: function (car) {
-        d3.xhr(this.props.data_url).header("Content-Type", "application/json").post(JSON.stringify(car), function (error, responseData) {
-            if (error) return console.warn(error);
-            // console.log(responseData.response)
-        });
+        d3.xhr(this.carURL(car)).header("Content-Type", "application/json").on("error", function (error) {
+            console.log('failed to create the car: ' + car.marque + ' ' + car.model);
+        }).on("load", function (xhr) {
+            this.loadCarsFromServer();
+            console.log('created the car: ' + car.marque + ' ' + car.model);
+        }.bind(this)).send('POST', JSON.stringify(car));
     },
     handleCarDelete: function (car) {
-        d3.xhr('/cars/' + car.marque + '/' + car.model).on("error", function (error) {
+        d3.xhr(this.carURL(car)).on("error", function (error) {
             console.log('failed to delete the car: ' + car.marque + ' ' + car.model);
         }).on("load", function (xhr) {
             this.loadCarsFromServer();
@@ -91,7 +96,7 @@ var CarTile = React.createClass({
             'div',
             { className: 'CarTile' },
             React.createElement(
-                'h2',
+                'h4',
                 { className: 'car_name' },
                 this.props.car['marque'] + ' ' + this.props.car['model'],
                 React.createElement(
