@@ -30,9 +30,12 @@
                 "source": "http://example.com/"
               }
             ],
-            "features": {
-              "bluetooth": false
-            }
+            "features_standard": {
+              "bluetooth": false,
+              "sunroof": false,
+              "roof_rack": false
+            },
+            "features_optional": {}
           },
         ],
         "pictures": [
@@ -48,14 +51,25 @@
           "quietness": 0,
           "electronics": 0,
         },
-        "length_m": 0,
-        "width_m": 0,
-        "height_m": 0,
-        "wheelbase_m": 0,
-        "turning_circle_diameter_m": 0,
-        "epa_cargo_volume_m3": 0,
-        "epa_passenger_volume_m3": 0,
-        "rear_seat_distance_m": 0
+        "safety_iihs_hldi": {
+          "small_overlap_front": 0,
+          "moderate_overlap_front": 0,
+          "side": 0,
+          "roof_strength": 0,
+          "head_restraints_seats": 0,
+          "front_crash_prevention": 0,
+          "child_seat_anchors_ease_use": 0
+        },
+        "specifications": {
+          "length_m": 0,
+          "width_m": 0,
+          "height_m": 0,
+          "wheelbase_m": 0,
+          "turning_circle_diameter_m": 0,
+          "epa_cargo_volume_m3": 0,
+          "epa_passenger_volume_m3": 0,
+          "rear_seat_distance_m": 0
+        }
       }
     ]
   }
