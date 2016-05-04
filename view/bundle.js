@@ -95,22 +95,35 @@ var CarTile = React.createClass({
         return React.createElement(
             'div',
             { className: 'tile CarTile' },
-            React.createElement('input', {
-                className: 'select widget',
-                type: 'checkbox' }),
             React.createElement(
-                'button',
-                {
-                    className: 'widget delete',
-                    type: 'button',
-                    name: 'deleteCar',
-                    onClick: this.onCarDelete },
-                'x'
+                'div',
+                { className: 'widget_container' },
+                React.createElement('input', {
+                    className: 'select widget',
+                    type: 'checkbox' }),
+                React.createElement(
+                    'button',
+                    {
+                        className: 'widget delete',
+                        type: 'button',
+                        name: 'deleteCar',
+                        onClick: this.onCarDelete },
+                    'x'
+                )
             ),
             React.createElement(
-                'p',
-                { className: 'car_name' },
-                this.props.car['marque'] + ' ' + this.props.car['model']
+                'div',
+                { className: 'image_container' },
+                React.createElement('img', { src: 'https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg' })
+            ),
+            React.createElement(
+                'div',
+                { className: 'metadata_container' },
+                React.createElement(
+                    'p',
+                    { className: 'car_name' },
+                    this.props.car['marque'] + ' ' + this.props.car['model']
+                )
             )
         );
     }

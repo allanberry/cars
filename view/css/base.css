@@ -17,7 +17,7 @@ body {}
 
 .tile {
     border: 1px solid silver;
-    padding: .5rem;
+/*     padding: .5rem; */
     margin: .25rem;
     border-radius:.5rem;
 }
@@ -38,9 +38,16 @@ body {}
     flex: 1 1 10rem;
 }
 
-.CarTile .widget {
-    /* position: absolute; */
+.CarTile .widget_container {
+    position: relative;
+    width: 100%;
+    /* border: 1px solid green; */
     z-index: 1;
+}
+
+.CarTile .widget_container .widget {
+    position: absolute;
+    margin: .25rem;
     width: 1.5rem;
     height: 1.5rem;
     border-radius:.25rem;
@@ -48,31 +55,41 @@ body {}
     outline: 0;
 }
 
-.CarTile input.select {
+.CarTile .widget_container input.widget.select {
     -webkit-appearance: none;
 }
 
-.CarTile input.select:checked {
+.CarTile .widget_container input.widget.select:checked {
     background: green;
 }
 
-.CarTile button.delete {
-    /* right: 0; */
+.CarTile .widget_container button.widget.delete {
+    right: 0;
 }
 
-.CarTile .img_container {
+.CarTile .image_container {
     position: relative;
     width: 100%;
     padding-bottom: 75%; /* for a 3:4 ratio*/
     float: left;
     height: 0;
+
 }
 
-.CarTile .img_container img {
+.CarTile .image_container img {
     /* sits within the boundaries of ".carTile .img_container" above */
     max-width: 100%;
     max-height: 100%;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+
+    border-top-left-radius:.5rem;
+    border-top-right-radius:.5rem;
+}
+
+.CarTile .metadata_container {
+    
+    position: relative;
+    padding: .5rem;
 }
