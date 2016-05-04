@@ -1,54 +1,61 @@
 [
   {
-    "_id": {
-      "$oid": "56f72e43b6bc65e4fb6d3ac0"
-    },
-    "marque": "Default Marque",
-    "model": "Default Model",
+    "marque": "default",
+    "model": "default",
     "years": [
       {
-        "colors": [
+        "year": 2016,
+        "series": 2016,
+        "trims": [
           {
-            "hex": "#ffffff",
-            "name": "white"
-          }
+            "trim": "default",
+            "drivetrain": "default",
+            "transmission": "default",
+            "doors": 0,
+            "cylinders": 0,
+            "displacement_l": 0,
+            "hp": 0,
+            "epa_city_mpg": 0,
+            "epa_highway_mpg": 0,
+            "people_seating": 0,
+            "colors": [
+              {
+                "hex": "#ffffff",
+                "name": "default"
+              }
+            ],
+            "prices": [
+              {
+                "price": 0,
+                "source": "http://example.com/"
+              }
+            ],
+            "features": {
+              "bluetooth": false
+            }
+          },
         ],
         "pictures": [
           {
-            "caption": "exterior view",
+            "caption": "default view",
             "name": "default.jpg"
           }
         ],
-        "prices": [
-          {
-            "time": "2016-01-01 08:00:00",
-            "url": "http://www.consumerreports.org/",
-            "value": 20000
-          }
-        ],
         "rating": {
-          "attractiveness": 5,
-          "interior": 5,
-          "reliability": 5
+          "attractiveness": 0,
+          "interior": 0,
+          "reliability": 0,
+          "quietness": 0,
+          "electronics": 0,
         },
-        "series": 2013,
-        "specification": {
-          "length": 150,
-          "wheelbase": 100
-        },
-        "trim_lines": [
-          {
-            "cylinders": 4,
-            "displacement": 2.0,
-            "doors": 4,
-            "drivetrain": "AWD",
-            "hp": 150,
-            "mpg": 25,
-            "name": "Premium",
-            "transmission": "automatic"
-          }
-        ],
-        "year": 2016
+        "length_m": 0,
+        "width_m": 0,
+        "height_m": 0,
+        "wheelbase_m": 0,
+        "turning_circle_diameter_m": 0,
+        "epa_cargo_volume_m3": 0,
+        "epa_passenger_volume_m3": 0,
+        "rear_seat_distance_m": 0
       }
     ]
   }
