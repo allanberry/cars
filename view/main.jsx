@@ -62,7 +62,27 @@ var CarFilter = React.createClass({
     render: function() {
         return (
             <div className="CarFilter">
-                Hello World!  I am a CarFilter.
+                <div className="widget_container">
+                    <Sorter sort_terms={["marque", "model"]} />
+                </div>
+            </div>
+        )
+    }
+})
+
+var Sorter = React.createClass({
+    render: function() {
+        var selectOptions = this.props.sort_terms.map(function(item) {
+            return (
+                <option key={item} value={item}>{item}</option>
+            )
+        }.bind(this))
+        return (
+            <div className="Sorter">
+                <input list="sort_items" name="sortItemSet" />
+                <datalist id="sort_items">
+                    {selectOptions}
+                </datalist>
             </div>
         )
     }

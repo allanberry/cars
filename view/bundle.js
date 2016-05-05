@@ -65,7 +65,35 @@ var CarFilter = React.createClass({
         return React.createElement(
             'div',
             { className: 'CarFilter' },
-            'Hello World!  I am a CarFilter.'
+            React.createElement(
+                'div',
+                { className: 'widget_container' },
+                React.createElement(Sorter, { sort_terms: ["marque", "model"] })
+            )
+        );
+    }
+});
+
+var Sorter = React.createClass({
+    displayName: 'Sorter',
+
+    render: function () {
+        var selectOptions = this.props.sort_terms.map(function (item) {
+            return React.createElement(
+                'option',
+                { key: item, value: item },
+                item
+            );
+        }.bind(this));
+        return React.createElement(
+            'div',
+            { className: 'Sorter' },
+            React.createElement('input', { list: 'sort_items', name: 'sortItemSet' }),
+            React.createElement(
+                'datalist',
+                { id: 'sort_items' },
+                selectOptions
+            )
         );
     }
 });
