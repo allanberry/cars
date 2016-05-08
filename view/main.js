@@ -6,7 +6,7 @@ var utils = require('./utilities')
 var Sorter = require('./components/Sorter')
 var CarTile = require('./components/CarTile')
 
-var mountPoint = document.getElementById('react_mount_point')
+var mountPoint = document.getElementById('reactMountPoint')
 
 var CarBox = React.createClass({
     getInitialState: function() {
@@ -39,7 +39,7 @@ var CarBox = React.createClass({
             .send('DELETE')
     },
     loadCarsFromServer: function() {
-        d3.json(this.props.data_url, function(error, json) {
+        d3.json(this.props.dataUrl, function(error, json) {
             if (error) return console.warn(error);
             this.setState({data: json})
         }.bind(this))
@@ -65,8 +65,8 @@ var CarFilter = React.createClass({
     render: function() {
         return (
             <div className="CarFilter">
-                <div className="widget_container">
-                    <Sorter sort_terms={["marque", "model"]} />
+                <div className="widgetContainer">
+                    <Sorter sortTerms={["marque", "model"]} />
                 </div>
             </div>
         )
@@ -74,8 +74,16 @@ var CarFilter = React.createClass({
 })
 
 var CarList = React.createClass({
+    carSlug: function(car) {
+        return utils.slugify(car.marque + '-' + car.model)
+    },
+    carName: function(car) {
+        return utils.toTitleCase(car.marque + ' ' + car.model)
+    },
     render: function() {
         var carNodes = this.props.data.map(function(car) {
+            car['slug'] = this.carSlug(car)
+            car['name'] = this.carName(car)
             return (
                 <CarTile car={car} key={car._id["$oid"]} onCarDelete={this.props.onCarDelete}/>
             )
@@ -130,5 +138,5 @@ var CarForm = React.createClass({
 })
 
 ReactDOM.render(
-    <CarBox data_url="/cars.json" pollInterval={2000} />, mountPoint
+    <CarBox dataUrl="/cars.json" pollInterval={2000} />, mountPoint
 )

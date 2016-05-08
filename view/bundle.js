@@ -15,7 +15,7 @@ var CarTile = React.createClass({
             { className: "tile CarTile" },
             React.createElement(
                 "div",
-                { className: "widget_container" },
+                { className: "widgetContainer" },
                 React.createElement("input", {
                     className: "select widget",
                     type: "checkbox" }),
@@ -31,15 +31,18 @@ var CarTile = React.createClass({
             ),
             React.createElement(
                 "div",
-                { className: "image_container" },
-                React.createElement("img", { src: "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg" })
+                { className: "imageContainer" },
+                React.createElement("img", {
+                    src: "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
+                    alt: this.props.car['name']
+                })
             ),
             React.createElement(
                 "div",
-                { className: "metadata_container" },
+                { className: "metadataContainer" },
                 React.createElement(
                     "p",
-                    { className: "car_name" },
+                    { className: "carName" },
                     this.props.car['marque'] + ' ' + this.props.car['model']
                 )
             )
@@ -58,7 +61,7 @@ var Sorter = React.createClass({
     displayName: "Sorter",
 
     render: function render() {
-        var selectOptions = this.props.sort_terms.map(function (item) {
+        var selectOptions = this.props.sortTerms.map(function (item) {
             return React.createElement(
                 "option",
                 { key: item, value: item },
@@ -68,10 +71,10 @@ var Sorter = React.createClass({
         return React.createElement(
             "div",
             { className: "Sorter" },
-            React.createElement("input", { list: "sort_items", name: "sortItemSet" }),
+            React.createElement("input", { list: "sortItems", name: "sortItemSet" }),
             React.createElement(
                 "datalist",
-                { id: "sort_items" },
+                { id: "sortItems" },
                 selectOptions
             )
         );
@@ -91,7 +94,7 @@ var utils = require('./utilities');
 var Sorter = require('./components/Sorter');
 var CarTile = require('./components/CarTile');
 
-var mountPoint = document.getElementById('react_mount_point');
+var mountPoint = document.getElementById('reactMountPoint');
 
 var CarBox = React.createClass({
     displayName: 'CarBox',
@@ -119,7 +122,7 @@ var CarBox = React.createClass({
         }.bind(this)).send('DELETE');
     },
     loadCarsFromServer: function loadCarsFromServer() {
-        d3.json(this.props.data_url, function (error, json) {
+        d3.json(this.props.dataUrl, function (error, json) {
             if (error) return console.warn(error);
             this.setState({ data: json });
         }.bind(this));
@@ -154,8 +157,8 @@ var CarFilter = React.createClass({
             { className: 'CarFilter' },
             React.createElement(
                 'div',
-                { className: 'widget_container' },
-                React.createElement(Sorter, { sort_terms: ["marque", "model"] })
+                { className: 'widgetContainer' },
+                React.createElement(Sorter, { sortTerms: ["marque", "model"] })
             )
         );
     }
@@ -164,8 +167,16 @@ var CarFilter = React.createClass({
 var CarList = React.createClass({
     displayName: 'CarList',
 
+    carSlug: function carSlug(car) {
+        return utils.slugify(car.marque + '-' + car.model);
+    },
+    carName: function carName(car) {
+        return utils.toTitleCase(car.marque + ' ' + car.model);
+    },
     render: function render() {
         var carNodes = this.props.data.map(function (car) {
+            car['slug'] = this.carSlug(car);
+            car['name'] = this.carName(car);
             return React.createElement(CarTile, { car: car, key: car._id["$oid"], onCarDelete: this.props.onCarDelete });
         }.bind(this));
         return React.createElement(
@@ -219,7 +230,7 @@ var CarForm = React.createClass({
     }
 });
 
-ReactDOM.render(React.createElement(CarBox, { data_url: '/cars.json', pollInterval: 2000 }), mountPoint);
+ReactDOM.render(React.createElement(CarBox, { dataUrl: '/cars.json', pollInterval: 2000 }), mountPoint);
 
 },{"./components/CarTile":1,"./components/Sorter":2,"./utilities":162,"d3":4,"react":161,"react-dom":32}],4:[function(require,module,exports){
 !function() {
@@ -28727,13 +28738,19 @@ module.exports = require('./lib/React');
  */
 
 module.exports = {
-    slugify: function slugify(text) {
+    slugify: function slugify(str) {
         // hat tip https://gist.github.com/mathewbyrne/1280286
-        return text.toString().toLowerCase().trim().replace(/\s+/g, '-') // Replace spaces with -
+        return str.toString().toLowerCase().trim().replace(/\s+/g, '-') // Replace spaces with -
         .replace(/&/g, '-and-') // Replace & with 'and'
         .replace(/[^\w\-]+/g, '') // Remove all non-word chars
         .replace(/\-\-+/g, '-') // Replace multiple - with single -
         .replace(/^-+|-+$/g, ''); // remove leading, trailing -
+    },
+    toTitleCase: function toTitleCase(str) {
+        // hat tip http://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript#answer-196991
+        return str.replace(/\w\S*/g, function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
     }
 };
 

@@ -30,7 +30,7 @@ body {}
     flex: 2 1 21.66rem;
 }
 
-.CarFilter .widget_container {}
+.CarFilter .widgetContainer {}
 
 /*
  * carTile
@@ -40,14 +40,14 @@ body {}
     flex: 1 1 10rem;
 }
 
-.CarTile .widget_container {
+.CarTile .widgetContainer {
     position: relative;
     width: 100%;
     /* border: 1px solid green; */
     z-index: 1;
 }
 
-.CarTile .widget_container .widget {
+.CarTile .widgetContainer .widget {
     position: absolute;
     margin: .25rem;
     width: 1.5rem;
@@ -57,19 +57,19 @@ body {}
     outline: 0;
 }
 
-.CarTile .widget_container input.widget.select {
+.CarTile .widgetContainer input.widget.select {
     -webkit-appearance: none;
 }
 
-.CarTile .widget_container input.widget.select:checked {
+.CarTile .widgetContainer input.widget.select:checked {
     background: green;
 }
 
-.CarTile .widget_container button.widget.delete {
+.CarTile .widgetContainer button.widget.delete {
     right: 0;
 }
 
-.CarTile .image_container {
+.CarTile .imageContainer {
     position: relative;
     width: 100%;
     padding-bottom: 75%; /* for a 3:4 ratio*/
@@ -78,8 +78,8 @@ body {}
 
 }
 
-.CarTile .image_container img {
-    /* sits within the boundaries of ".carTile .img_container" above */
+.CarTile .imageContainer img {
+    /* sits within the boundaries of ".carTile .imgContainer" above */
     max-width: 100%;
     max-height: 100%;
     position: absolute;
@@ -90,7 +90,7 @@ body {}
     border-top-right-radius:.5rem;
 }
 
-.CarTile .metadata_container {
+.CarTile .metadataContainer {
 
     position: relative;
     padding: .5rem;

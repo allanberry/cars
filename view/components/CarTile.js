@@ -7,7 +7,7 @@ var CarTile = React.createClass({
     render: function() {
         return (
             <div className="tile CarTile">
-                <div className="widget_container">
+                <div className="widgetContainer">
                     <input
                         className="select widget"
                         type="checkbox" />
@@ -17,12 +17,15 @@ var CarTile = React.createClass({
                         name="deleteCar"
                         onClick={this.onCarDelete}>x</button>
                 </div>
-                <div className="image_container">
-                    {/* img_container is for constraining the icon, below */}
-                    <img src="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"></img>
+                <div className="imageContainer">
+                    {/* imgContainer is for constraining the icon, below */}
+                    <img
+                        src="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"
+                        alt={this.props.car['name']}
+                    />
                 </div>
-                <div className="metadata_container">
-                    <p className="car_name">
+                <div className="metadataContainer">
+                    <p className="carName">
                         {this.props.car['marque'] + ' ' + this.props.car['model']}
                     </p>
                 </div>
