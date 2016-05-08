@@ -3,6 +3,9 @@ var ReactDOM = require('react-dom')
 var d3 = require('d3')
 var utils = require('./utilities')
 
+var Sorter = require('./components/Sorter')
+var CarTile = require('./components/CarTile')
+
 var mountPoint = document.getElementById('react_mount_point')
 
 var CarBox = React.createClass({
@@ -70,24 +73,6 @@ var CarFilter = React.createClass({
     }
 })
 
-var Sorter = React.createClass({
-    render: function() {
-        var selectOptions = this.props.sort_terms.map(function(item) {
-            return (
-                <option key={item} value={item}>{item}</option>
-            )
-        }.bind(this))
-        return (
-            <div className="Sorter">
-                <input list="sort_items" name="sortItemSet" />
-                <datalist id="sort_items">
-                    {selectOptions}
-                </datalist>
-            </div>
-        )
-    }
-})
-
 var CarList = React.createClass({
     render: function() {
         var carNodes = this.props.data.map(function(car) {
@@ -98,37 +83,6 @@ var CarList = React.createClass({
         return (
             <div className="CarList">
                 {carNodes}
-            </div>
-        )
-    }
-})
-
-var CarTile = React.createClass({
-    onCarDelete: function() {
-        this.props.onCarDelete(this.props.car)
-    },
-    render: function() {
-        return (
-            <div className="tile CarTile">
-                <div className="widget_container">
-                    <input
-                        className="select widget"
-                        type="checkbox" />
-                    <button
-                        className="widget delete"
-                        type="button"
-                        name="deleteCar"
-                        onClick={this.onCarDelete}>x</button>
-                </div>
-                <div className="image_container">
-                    {/* img_container is for constraining the icon, below */}
-                    <img src="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"></img>
-                </div>
-                <div className="metadata_container">
-                    <p className="car_name">
-                        {this.props.car['marque'] + ' ' + this.props.car['model']}
-                    </p>
-                </div>
             </div>
         )
     }
