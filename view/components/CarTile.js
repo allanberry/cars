@@ -10,12 +10,14 @@ var CarTile = React.createClass({
                 <div className="widgetContainer">
                     <input
                         className="select widget"
-                        type="checkbox" />
+                        type="checkbox"
+                    />
                     <button
                         className="widget delete"
                         type="button"
                         name="deleteCar"
-                        onClick={this.onCarDelete}>x</button>
+                        onClick={this.onCarDelete}
+                    >x</button>
                 </div>
                 <div className="imageContainer">
                     {/* imgContainer is for constraining the icon, below */}

@@ -18,14 +18,16 @@ var CarTile = React.createClass({
                 { className: "widgetContainer" },
                 React.createElement("input", {
                     className: "select widget",
-                    type: "checkbox" }),
+                    type: "checkbox"
+                }),
                 React.createElement(
                     "button",
                     {
                         className: "widget delete",
                         type: "button",
                         name: "deleteCar",
-                        onClick: this.onCarDelete },
+                        onClick: this.onCarDelete
+                    },
                     "x"
                 )
             ),
@@ -53,29 +55,101 @@ var CarTile = React.createClass({
 module.exports = CarTile;
 
 },{"react":161}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var React = require('react');
 
 var Sorter = React.createClass({
-    displayName: "Sorter",
+    displayName: 'Sorter',
 
+    addSorter: function addSorter() {
+        // Create new Sorter
+    },
     render: function render() {
         var selectOptions = this.props.sortTerms.map(function (item) {
             return React.createElement(
-                "option",
+                'option',
                 { key: item, value: item },
                 item
             );
         }.bind(this));
+        var sorterItemStyle = {
+            border: '1px solid orange',
+            display: 'inline-block'
+        };
+        var sorterHandleStyle = {
+            border: '1px solid green',
+            width: '1rem',
+            height: '1rem',
+            cursor: 'grab',
+            display: 'inline-block'
+        };
+        var sorterOrderStyle = {
+            border: '1px solid blue',
+            display: 'inline-block'
+        };
+        var sorterOrderWidgetStyle = {
+            border: '1px solid red'
+        };
         return React.createElement(
-            "div",
-            { className: "Sorter" },
-            React.createElement("input", { list: "sortItems", name: "sortItemSet" }),
+            'div',
+            { className: 'Sorter' },
             React.createElement(
-                "datalist",
-                { id: "sortItems" },
-                selectOptions
+                'div',
+                { className: 'sorterItem', style: sorterItemStyle },
+                React.createElement('div', { className: 'sorterHandle', style: sorterHandleStyle }),
+                React.createElement('input', {
+                    className: 'sorterInput',
+                    list: this.props.key + "-sorterItems",
+                    name: 'sorterItems'
+                }),
+                React.createElement(
+                    'datalist',
+                    { className: 'sorterList', id: this.props.key + "-sorterItems" },
+                    selectOptions
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'sorterOrder', style: sorterOrderStyle },
+                    React.createElement(
+                        'button',
+                        {
+                            className: 'sorterAscending',
+                            type: 'button',
+                            style: sorterOrderWidgetStyle,
+                            onClick: ''
+                        },
+                        '+'
+                    ),
+                    React.createElement(
+                        'button',
+                        {
+                            className: 'sorterDescending',
+                            type: 'button',
+                            style: sorterOrderWidgetStyle,
+                            onClick: ''
+                        },
+                        '-'
+                    )
+                ),
+                React.createElement(
+                    'button',
+                    {
+                        className: 'sorterDelete',
+                        type: 'button',
+                        onClick: ''
+                    },
+                    'x'
+                )
+            ),
+            React.createElement(
+                'button',
+                {
+                    className: 'sorterAdd',
+                    type: 'button',
+                    onClick: ''
+                },
+                '+'
             )
         );
     }
