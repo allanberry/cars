@@ -1,13 +1,32 @@
 var React = require('react')
+var FontAwesome = require('react-fontawesome')
 
 var Sorter = React.createClass({
     addSorter: function() {
         // Create new Sorter
     },
+    deleteSorter: function(sorter) {
+        // Delete Sorter
+    },
     render: function() {
-        var selectOptions = this.props.sortTerms.map(function(item) {
+        return (
+            <div className="Sorter">
+                <SorterItem option="Red" selectOptions={['Red', 'Green']} />
+                <button
+                    className="sorterAdd"
+                    type="button"
+                    onClick=""
+                >+</button>
+            </div>
+        )
+    }
+})
+
+var SorterItem = React.createClass({
+    render: function() {
+        var selectOptions = this.props.selectOptions.map(function(option) {
             return (
-                <option key={item} value={item}>{item}</option>
+                <option key={option} value={option}>{option}</option>
             )
         }.bind(this))
         var sorterItemStyle = {
@@ -29,42 +48,40 @@ var Sorter = React.createClass({
             border: '1px solid red'
         }
         return (
-            <div className="Sorter">
-                <div className="sorterItem" style={sorterItemStyle}>
-                    <div className="sorterHandle" style={sorterHandleStyle} />
-                    <input
-                        className="sorterInput"
-                        list={this.props.key + "-sorterItems"}
-                        name="sorterItems"
-                    />
-                    <datalist className="sorterList" id={this.props.key + "-sorterItems"}>
-                        {selectOptions}
-                    </datalist>
-                    <div className="sorterOrder" style={sorterOrderStyle}>
-                        <button
-                            className="sorterAscending"
-                            type="button"
-                            style={sorterOrderWidgetStyle}
-                            onClick=""
-                        >+</button>
-                        <button
-                            className="sorterDescending"
-                            type="button"
-                            style={sorterOrderWidgetStyle}
-                            onClick=""
-                        >-</button>
-                    </div>
+            <div className="SorterItem" style={sorterItemStyle}>
+                <div className="sorterHandle" style={sorterHandleStyle} />
+                <input
+                    className="sorterInput"
+                    defaultValue={this.props.option}
+                    list={this.props.key + "-sorterItems"}
+                    name="sorterItems"
+                />
+                <datalist className="sorterList" id={this.props.key + "-sorterItems"}>
+                    {selectOptions}
+                </datalist>
+                <div className="sorterOrder" style={sorterOrderStyle}>
                     <button
-                        className="sorterDelete"
+                        className="sorterAscending"
                         type="button"
+                        style={sorterOrderWidgetStyle}
                         onClick=""
-                    >x</button>
+                    >
+                        <FontAwesome name='sort-amount-asc' />
+                    </button>
+                    <button
+                        className="sorterDescending"
+                        type="button"
+                        style={sorterOrderWidgetStyle}
+                        onClick=""
+                    >
+                        <FontAwesome name='sort-amount-desc' />
+                    </button>
                 </div>
                 <button
-                    className="sorterAdd"
+                    className="sorterDelete"
                     type="button"
                     onClick=""
-                >+</button>
+                >x</button>
             </div>
         )
     }

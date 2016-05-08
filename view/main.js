@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom')
 var d3 = require('d3')
 var utils = require('./utilities')
 
+
 var Sorter = require('./components/Sorter')
 var CarTile = require('./components/CarTile')
 
@@ -66,7 +67,7 @@ var CarFilter = React.createClass({
         return (
             <div className="CarFilter">
                 <div className="widgetContainer">
-                    <Sorter sortTerms={["marque", "model"]} />
+                    <Sorter />
                 </div>
             </div>
         )
