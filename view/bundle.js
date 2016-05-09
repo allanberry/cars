@@ -1,50 +1,91 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var React = require('react');
+var FontAwesome = require('react-fontawesome');
 
 var CarTile = React.createClass({
-    displayName: "CarTile",
+    displayName: 'CarTile',
 
     onCarDelete: function onCarDelete() {
         this.props.onCarDelete(this.props.car);
     },
     render: function render() {
+        var styles = {
+            "carTile": {
+                "flex": "1 1 10rem",
+                "border": "1px solid silver",
+                "margin": ".25rem",
+                "borderRadius": ".5rem"
+            },
+            "imageContainer": {
+                "position": "relative",
+                "width": "100%",
+                "paddingBottom": "75%" },
+            // for a 3:4 ratio
+            "image": {
+                "maxWidth": "100%",
+                "maxHeight": "100%",
+                "position": "absolute",
+                "top": "50%",
+                "transform": "translateY(-50%)"
+            },
+            "metadataContainer": {
+                "position": "relative",
+                "padding": ".5rem"
+            }
+        };
         return React.createElement(
-            "div",
-            { className: "tile CarTile" },
+            'div',
+            {
+                className: 'CarTile',
+                style: styles.carTile
+            },
             React.createElement(
-                "div",
-                { className: "widgetContainer" },
-                React.createElement("input", {
-                    className: "select widget",
-                    type: "checkbox"
-                }),
+                'div',
+                { className: 'widgetContainer' },
                 React.createElement(
-                    "button",
+                    'button',
                     {
-                        className: "widget delete",
-                        type: "button",
-                        name: "deleteCar",
+                        className: 'checkButton',
+                        type: 'button',
+                        name: 'deleteCar',
                         onClick: this.onCarDelete
                     },
-                    "x"
+                    React.createElement(FontAwesome, { name: 'check-square-o' })
+                ),
+                React.createElement(
+                    'button',
+                    {
+                        className: 'deleteButton',
+                        type: 'button',
+                        name: 'deleteCar',
+                        onClick: this.onCarDelete
+                    },
+                    React.createElement(FontAwesome, { name: 'remove' })
                 )
             ),
             React.createElement(
-                "div",
-                { className: "imageContainer" },
-                React.createElement("img", {
-                    src: "https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg",
-                    alt: this.props.car['name']
+                'div',
+                {
+                    className: 'imageContainer',
+                    style: styles.imageContainer
+                },
+                React.createElement('img', {
+                    src: 'https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg',
+                    alt: this.props.car['name'],
+                    style: styles.image
                 })
             ),
             React.createElement(
-                "div",
-                { className: "metadataContainer" },
+                'div',
+                {
+                    className: 'metadataContainer',
+                    style: styles.metadataContainer
+                },
                 React.createElement(
-                    "p",
-                    { className: "carName" },
+                    'p',
+                    { className: 'carName' },
                     this.props.car['marque'] + ' ' + this.props.car['model']
                 )
             )
@@ -54,7 +95,7 @@ var CarTile = React.createClass({
 
 module.exports = CarTile;
 
-},{"react":162}],2:[function(require,module,exports){
+},{"react":162,"react-fontawesome":33}],2:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -81,7 +122,7 @@ var Sorter = React.createClass({
                     type: 'button',
                     onClick: ''
                 },
-                '+'
+                React.createElement(FontAwesome, { name: 'plus' })
             )
         );
     }
@@ -110,16 +151,16 @@ var SorterItem = React.createClass({
             display: 'inline-block'
         };
         var sorterOrderStyle = {
-            border: '1px solid blue',
             display: 'inline-block'
-        };
-        var sorterOrderWidgetStyle = {
-            border: '1px solid red'
         };
         return React.createElement(
             'div',
             { className: 'SorterItem', style: sorterItemStyle },
-            React.createElement('div', { className: 'sorterHandle', style: sorterHandleStyle }),
+            React.createElement(
+                'div',
+                { className: 'sorterHandle', style: sorterHandleStyle },
+                React.createElement(FontAwesome, { name: 'reorder' })
+            ),
             React.createElement('input', {
                 className: 'sorterInput',
                 defaultValue: this.props.option,
@@ -132,28 +173,14 @@ var SorterItem = React.createClass({
                 selectOptions
             ),
             React.createElement(
-                'div',
-                { className: 'sorterOrder', style: sorterOrderStyle },
-                React.createElement(
-                    'button',
-                    {
-                        className: 'sorterAscending',
-                        type: 'button',
-                        style: sorterOrderWidgetStyle,
-                        onClick: ''
-                    },
-                    React.createElement(FontAwesome, { name: 'sort-amount-asc' })
-                ),
-                React.createElement(
-                    'button',
-                    {
-                        className: 'sorterDescending',
-                        type: 'button',
-                        style: sorterOrderWidgetStyle,
-                        onClick: ''
-                    },
-                    React.createElement(FontAwesome, { name: 'sort-amount-desc' })
-                )
+                'button',
+                {
+                    className: 'sorterOrder',
+                    type: 'button',
+                    style: sorterOrderStyle,
+                    onClick: ''
+                },
+                React.createElement(FontAwesome, { name: 'unsorted' })
             ),
             React.createElement(
                 'button',
@@ -162,7 +189,7 @@ var SorterItem = React.createClass({
                     type: 'button',
                     onClick: ''
                 },
-                'x'
+                React.createElement(FontAwesome, { name: 'remove' })
             )
         );
     }

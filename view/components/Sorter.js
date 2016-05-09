@@ -16,7 +16,9 @@ var Sorter = React.createClass({
                     className="sorterAdd"
                     type="button"
                     onClick=""
-                >+</button>
+                >
+                    <FontAwesome name='plus' />
+                </button>
             </div>
         )
     }
@@ -41,15 +43,13 @@ var SorterItem = React.createClass({
             display: 'inline-block',
         }
         var sorterOrderStyle = {
-            border: '1px solid blue',
             display: 'inline-block'
-        }
-        var sorterOrderWidgetStyle = {
-            border: '1px solid red'
         }
         return (
             <div className="SorterItem" style={sorterItemStyle}>
-                <div className="sorterHandle" style={sorterHandleStyle} />
+                <div className="sorterHandle" style={sorterHandleStyle}>
+                    <FontAwesome name='reorder' />
+                </div>
                 <input
                     className="sorterInput"
                     defaultValue={this.props.option}
@@ -59,29 +59,21 @@ var SorterItem = React.createClass({
                 <datalist className="sorterList" id={this.props.key + "-sorterItems"}>
                     {selectOptions}
                 </datalist>
-                <div className="sorterOrder" style={sorterOrderStyle}>
-                    <button
-                        className="sorterAscending"
-                        type="button"
-                        style={sorterOrderWidgetStyle}
-                        onClick=""
-                    >
-                        <FontAwesome name='sort-amount-asc' />
-                    </button>
-                    <button
-                        className="sorterDescending"
-                        type="button"
-                        style={sorterOrderWidgetStyle}
-                        onClick=""
-                    >
-                        <FontAwesome name='sort-amount-desc' />
-                    </button>
-                </div>
+                <button
+                    className="sorterOrder"
+                    type="button"
+                    style={sorterOrderStyle}
+                    onClick=""
+                >
+                    <FontAwesome name='unsorted' />
+                </button>
                 <button
                     className="sorterDelete"
                     type="button"
                     onClick=""
-                >x</button>
+                >
+                    <FontAwesome name='remove' />
+                </button>
             </div>
         )
     }
