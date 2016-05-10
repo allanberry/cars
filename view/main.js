@@ -3,11 +3,13 @@ var ReactDOM = require('react-dom')
 var d3 = require('d3')
 var utils = require('./utilities')
 
-
+// Components
 var Sorter = require('./components/Sorter')
 var CarTile = require('./components/CarTile')
 
+// Connection to HTML
 var mountPoint = document.getElementById('reactMountPoint')
+
 
 var CarBox = React.createClass({
     getInitialState: function() {

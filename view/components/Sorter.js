@@ -1,5 +1,6 @@
 var React = require('react')
 var FontAwesome = require('react-fontawesome')
+var utils = require('../utilities')
 
 var Sorter = React.createClass({
     addSorter: function() {
@@ -11,10 +12,15 @@ var Sorter = React.createClass({
     render: function() {
         var styles = {}
         var options = ['Marque', 'Model']
+        var sorterItemNodes = options.map(function(option) {
+            return (
+                <SorterItem key={utils.slugify(option)} option={option} selectOptions={options} />
+            )
+        }.bind(this))
+
         return (
             <div className="Sorter">
-                <SorterItem option="Marque" selectOptions={options} />
-                <SorterItem option="Model" selectOptions={options} />
+                {sorterItemNodes}
                 <button
                     className="sorterAdd"
                     type="button"

@@ -112,6 +112,7 @@ module.exports = CarTile;
 
 var React = require('react');
 var FontAwesome = require('react-fontawesome');
+var utils = require('../utilities');
 
 var Sorter = React.createClass({
     displayName: 'Sorter',
@@ -125,11 +126,14 @@ var Sorter = React.createClass({
     render: function render() {
         var styles = {};
         var options = ['Marque', 'Model'];
+        var sorterItemNodes = options.map(function (option) {
+            return React.createElement(SorterItem, { key: utils.slugify(option), option: option, selectOptions: options });
+        }.bind(this));
+
         return React.createElement(
             'div',
             { className: 'Sorter' },
-            React.createElement(SorterItem, { option: 'Marque', selectOptions: options }),
-            React.createElement(SorterItem, { option: 'Model', selectOptions: options }),
+            sorterItemNodes,
             React.createElement(
                 'button',
                 {
@@ -227,7 +231,7 @@ var SorterItem = React.createClass({
 
 module.exports = Sorter;
 
-},{"react":162,"react-fontawesome":33}],3:[function(require,module,exports){
+},{"../utilities":163,"react":162,"react-fontawesome":33}],3:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -235,9 +239,11 @@ var ReactDOM = require('react-dom');
 var d3 = require('d3');
 var utils = require('./utilities');
 
+// Components
 var Sorter = require('./components/Sorter');
 var CarTile = require('./components/CarTile');
 
+// Connection to HTML
 var mountPoint = document.getElementById('reactMountPoint');
 
 var CarBox = React.createClass({
