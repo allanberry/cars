@@ -12,27 +12,35 @@ var CarTile = React.createClass({
     },
     render: function render() {
         var styles = {
-            "carTile": {
-                "flex": "1 1 10rem",
-                "border": "1px solid silver",
-                "margin": ".25rem",
-                "borderRadius": ".5rem"
+            carTile: {
+                position: "relative",
+                flex: "1 1 10rem",
+                border: "1px solid silver"
             },
-            "imageContainer": {
-                "position": "relative",
-                "width": "100%",
-                "paddingBottom": "75%" },
+            widgetContainer: {
+                position: "absolute",
+                width: "100%",
+                zIndex: 1
+            },
+            deleteButton: {
+                position: "absolute",
+                right: 0
+            },
+            imageContainer: {
+                position: "relative",
+                width: "100%",
+                paddingBottom: "75%" },
             // for a 3:4 ratio
-            "image": {
-                "maxWidth": "100%",
-                "maxHeight": "100%",
-                "position": "absolute",
-                "top": "50%",
-                "transform": "translateY(-50%)"
+            image: {
+                maxWidth: "100%",
+                maxHeight: "100%",
+                position: "absolute",
+                top: "50%",
+                transform: "translateY(-50%)"
             },
-            "metadataContainer": {
-                "position": "relative",
-                "padding": ".5rem"
+            metadataContainer: {
+                position: "relative",
+                padding: ".5rem"
             }
         };
         return React.createElement(
@@ -43,14 +51,17 @@ var CarTile = React.createClass({
             },
             React.createElement(
                 'div',
-                { className: 'widgetContainer' },
+                {
+                    className: 'widgetContainer',
+                    style: styles.widgetContainer
+                },
                 React.createElement(
                     'button',
                     {
                         className: 'checkButton',
                         type: 'button',
-                        name: 'deleteCar',
-                        onClick: this.onCarDelete
+                        style: styles.checkButton,
+                        name: 'selectCar'
                     },
                     React.createElement(FontAwesome, { name: 'check-square-o' })
                 ),
@@ -60,7 +71,8 @@ var CarTile = React.createClass({
                         className: 'deleteButton',
                         type: 'button',
                         name: 'deleteCar',
-                        onClick: this.onCarDelete
+                        onClick: this.onCarDelete,
+                        style: styles.deleteButton
                     },
                     React.createElement(FontAwesome, { name: 'remove' })
                 )
@@ -111,15 +123,19 @@ var Sorter = React.createClass({
         // Delete Sorter
     },
     render: function render() {
+        var styles = {};
+        var options = ['Marque', 'Model'];
         return React.createElement(
             'div',
             { className: 'Sorter' },
-            React.createElement(SorterItem, { option: 'Red', selectOptions: ['Red', 'Green'] }),
+            React.createElement(SorterItem, { option: 'Marque', selectOptions: options }),
+            React.createElement(SorterItem, { option: 'Model', selectOptions: options }),
             React.createElement(
                 'button',
                 {
                     className: 'sorterAdd',
                     type: 'button',
+                    style: styles,
                     onClick: ''
                 },
                 React.createElement(FontAwesome, { name: 'plus' })
@@ -139,27 +155,40 @@ var SorterItem = React.createClass({
                 option
             );
         }.bind(this));
-        var sorterItemStyle = {
-            border: '1px solid orange',
-            display: 'inline-block'
-        };
-        var sorterHandleStyle = {
-            border: '1px solid green',
-            width: '1rem',
-            height: '1rem',
-            cursor: 'grab',
-            display: 'inline-block'
-        };
-        var sorterOrderStyle = {
-            display: 'inline-block'
+        var styles = {
+            sorterItem: {
+                display: 'inline-block',
+                border: "1px solid silver",
+                padding: ".125rem",
+                marginRight: ".25rem"
+            },
+            sorterHandle: {
+                width: '1rem',
+                height: '1rem',
+                cursor: 'grab',
+                display: 'inline-block',
+                margin: "0 .25rem 0 .125rem"
+            },
+            sorterOrder: {
+                display: 'inline-block'
+            },
+            sorterDelete: {
+                marginLeft: ".125rem"
+            }
         };
         return React.createElement(
             'div',
-            { className: 'SorterItem', style: sorterItemStyle },
+            {
+                className: 'SorterItem',
+                style: styles.sorterItem
+            },
             React.createElement(
                 'div',
-                { className: 'sorterHandle', style: sorterHandleStyle },
-                React.createElement(FontAwesome, { name: 'reorder' })
+                {
+                    className: 'sorterHandle',
+                    style: styles.sorterHandle
+                },
+                React.createElement(FontAwesome, { name: 'arrows' })
             ),
             React.createElement('input', {
                 className: 'sorterInput',
@@ -177,7 +206,7 @@ var SorterItem = React.createClass({
                 {
                     className: 'sorterOrder',
                     type: 'button',
-                    style: sorterOrderStyle,
+                    style: styles.sorterOrder,
                     onClick: ''
                 },
                 React.createElement(FontAwesome, { name: 'unsorted' })
@@ -187,6 +216,7 @@ var SorterItem = React.createClass({
                 {
                     className: 'sorterDelete',
                     type: 'button',
+                    style: styles.sorterDelete,
                     onClick: ''
                 },
                 React.createElement(FontAwesome, { name: 'remove' })
@@ -293,9 +323,16 @@ var CarList = React.createClass({
             car['name'] = this.carName(car);
             return React.createElement(CarTile, { car: car, key: car._id["$oid"], onCarDelete: this.props.onCarDelete });
         }.bind(this));
+        var styles = {
+            display: "flex",
+            flexFlow: "row wrap"
+        };
         return React.createElement(
             'div',
-            { className: 'CarList' },
+            {
+                className: 'CarList',
+                style: styles
+            },
             carNodes
         );
     }
@@ -326,7 +363,7 @@ var CarForm = React.createClass({
     render: function render() {
         return React.createElement(
             'form',
-            { className: 'carForm', onSubmit: this.handleSubmit },
+            { className: 'CarForm', onSubmit: this.handleSubmit },
             React.createElement('input', {
                 type: 'text',
                 placeholder: 'Marque',

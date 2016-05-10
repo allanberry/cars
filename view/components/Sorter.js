@@ -9,12 +9,16 @@ var Sorter = React.createClass({
         // Delete Sorter
     },
     render: function() {
+        var styles = {}
+        var options = ['Marque', 'Model']
         return (
             <div className="Sorter">
-                <SorterItem option="Red" selectOptions={['Red', 'Green']} />
+                <SorterItem option="Marque" selectOptions={options} />
+                <SorterItem option="Model" selectOptions={options} />
                 <button
                     className="sorterAdd"
                     type="button"
+                    style={styles}
                     onClick=""
                 >
                     <FontAwesome name='plus' />
@@ -31,24 +35,37 @@ var SorterItem = React.createClass({
                 <option key={option} value={option}>{option}</option>
             )
         }.bind(this))
-        var sorterItemStyle = {
-            border: '1px solid orange',
-            display: 'inline-block'
-        }
-        var sorterHandleStyle = {
-            border: '1px solid green',
-            width: '1rem',
-            height: '1rem',
-            cursor: 'grab',
-            display: 'inline-block',
-        }
-        var sorterOrderStyle = {
-            display: 'inline-block'
+        var styles = {
+            sorterItem: {
+                display: 'inline-block',
+                border: "1px solid silver",
+                padding: ".125rem",
+                marginRight: ".25rem"
+            },
+            sorterHandle: {
+                width: '1rem',
+                height: '1rem',
+                cursor: 'grab',
+                display: 'inline-block',
+                margin: "0 .25rem 0 .125rem",
+            },
+            sorterOrder: {
+                display: 'inline-block',
+            },
+            sorterDelete: {
+                marginLeft: ".125rem",
+            }
         }
         return (
-            <div className="SorterItem" style={sorterItemStyle}>
-                <div className="sorterHandle" style={sorterHandleStyle}>
-                    <FontAwesome name='reorder' />
+            <div
+                className="SorterItem"
+                style={styles.sorterItem}
+            >
+                <div
+                    className="sorterHandle"
+                    style={styles.sorterHandle}
+                >
+                    <FontAwesome name='arrows'/>
                 </div>
                 <input
                     className="sorterInput"
@@ -62,7 +79,7 @@ var SorterItem = React.createClass({
                 <button
                     className="sorterOrder"
                     type="button"
-                    style={sorterOrderStyle}
+                    style={styles.sorterOrder}
                     onClick=""
                 >
                     <FontAwesome name='unsorted' />
@@ -70,6 +87,7 @@ var SorterItem = React.createClass({
                 <button
                     className="sorterDelete"
                     type="button"
+                    style={styles.sorterDelete}
                     onClick=""
                 >
                     <FontAwesome name='remove' />

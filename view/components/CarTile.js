@@ -7,27 +7,35 @@ var CarTile = React.createClass({
     },
     render: function() {
         var styles = {
-            "carTile": {
-                "flex": "1 1 10rem",
-                "border": "1px solid silver",
-                "margin": ".25rem",
-                "borderRadius": ".5rem",
+            carTile: {
+                position: "relative",
+                flex: "1 1 10rem",
+                border: "1px solid silver",
             },
-            "imageContainer": {
-                "position": "relative",
-                "width": "100%",
-                "paddingBottom": "75%", // for a 3:4 ratio
+            widgetContainer: {
+                position: "absolute",
+                width: "100%",
+                zIndex: 1,
             },
-            "image": {
-                "maxWidth": "100%",
-                "maxHeight": "100%",
-                "position": "absolute",
-                "top": "50%",
-                "transform": "translateY(-50%)",
+            deleteButton: {
+                position: "absolute",
+                right: 0,
             },
-            "metadataContainer": {
-                "position": "relative",
-                "padding": ".5rem",
+            imageContainer: {
+                position: "relative",
+                width: "100%",
+                paddingBottom: "75%", // for a 3:4 ratio
+            },
+            image: {
+                maxWidth: "100%",
+                maxHeight: "100%",
+                position: "absolute",
+                top: "50%",
+                transform: "translateY(-50%)",
+            },
+            metadataContainer: {
+                position: "relative",
+                padding: ".5rem",
             }
         }
         return (
@@ -35,12 +43,15 @@ var CarTile = React.createClass({
                 className="CarTile"
                 style={styles.carTile}
             >
-                <div className="widgetContainer">
+                <div
+                    className="widgetContainer"
+                    style={styles.widgetContainer}
+                >
                     <button
                         className="checkButton"
                         type="button"
-                        name="deleteCar"
-                        onClick={this.onCarDelete}
+                        style={styles.checkButton}
+                        name="selectCar"
                     >
                         <FontAwesome name='check-square-o' />
                     </button>
@@ -49,6 +60,7 @@ var CarTile = React.createClass({
                         type="button"
                         name="deleteCar"
                         onClick={this.onCarDelete}
+                        style={styles.deleteButton}
                     >
                         <FontAwesome name='remove' />
                     </button>

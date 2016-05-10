@@ -89,8 +89,15 @@ var CarList = React.createClass({
                 <CarTile car={car} key={car._id["$oid"]} onCarDelete={this.props.onCarDelete}/>
             )
         }.bind(this))
+        var styles = {
+            display: "flex",
+            flexFlow: "row wrap",
+        }
         return (
-            <div className="CarList">
+            <div
+                className="CarList"
+                style={styles}
+            >
                 {carNodes}
             </div>
         )
@@ -119,7 +126,7 @@ var CarForm = React.createClass({
     },
     render: function() {
         return (
-            <form className="carForm" onSubmit={this.handleSubmit}>
+            <form className="CarForm" onSubmit={this.handleSubmit}>
                 <input
                     type="text"
                     placeholder="Marque"

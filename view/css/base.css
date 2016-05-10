@@ -1,59 +1,18 @@
-
-body {}
-
 /*
- * carList
+ * Global and Integration Styles Only
+ * Component styles go in component
  */
 
-.CarList {
-    display: flex;
-    flex-flow: row wrap;
-    padding: .25rem;
+body {
+    padding: .5rem;
 }
-
-/*
- * generic tile
- */
-
-/*
- * carFiltersTile
- */
 
 .CarFilter {
-    flex: 2 1 21.66rem;
+    margin-bottom: .5rem;
 }
 
-.CarFilter .widgetContainer {}
-
-/*
- * carTile
- */
-
-.CarTile .widgetContainer {
-    position: relative;
-    width: 100%;
-    /* border: 1px solid green; */
-    z-index: 1;
+.CarList {
+    margin-bottom: .5rem;
 }
 
-.CarTile .widgetContainer .widget {
-    position: absolute;
-    margin: .25rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius:.25rem;
-    border: 1px solid silver;
-    outline: 0;
-}
-
-.CarTile .widgetContainer input.widget.select {
-    -webkit-appearance: none;
-}
-
-.CarTile .widgetContainer input.widget.select:checked {
-    background: green;
-}
-
-.CarTile .widgetContainer button.widget.delete {
-    right: 0;
-}
+.CarForm {}
