@@ -34,19 +34,49 @@ var Sorter = React.createClass({
     }
 })
 
+var source;
+
 var SorterItem = React.createClass({
+
+    isbefore: function(a, b) {
+        if (a.parentNode == b.parentNode) {
+            for (var cur = a; cur; cur = cur.previousSibling) {
+                if (cur === b) { 
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
+
+    dragenter: function(e) {
+        // if (this.isbefore(source, e.target)) {
+        //     e.target.parentNode.insertBefore(source, e.target);
+        // }
+        // else {
+        //     e.target.parentNode.insertBefore(source, e.target.nextSibling);
+        // }
+    },
+
+    dragstart: function(event) {
+        // source = event.target;
+        // event.dataTransfer.effectAllowed = 'move';
+    },
+
     render: function() {
         var selectOptions = this.props.selectOptions.map(function(option) {
             return (
                 <option key={option} value={option}>{option}</option>
             )
         }.bind(this))
+
         var styles = {
             sorterItem: {
                 display: 'inline-block',
                 border: "1px solid silver",
                 padding: ".125rem",
-                marginRight: ".25rem"
+                marginRight: ".25rem",
+                cursor: "move",
             },
             sorterHandle: {
                 width: '1rem',
@@ -66,6 +96,9 @@ var SorterItem = React.createClass({
             <div
                 className="SorterItem"
                 style={styles.sorterItem}
+                draggable="true"
+                ondragenter={this.dragenter(event)}
+                ondragstart={this.dragstart(event)}
             >
                 <div
                     className="sorterHandle"
